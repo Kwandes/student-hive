@@ -7,7 +7,15 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx run-many --all --target=test",
+    "test:ci": "nx run-many --all --target=test --skip-nx-cache",
+    "lint": "nx workspace-lint && nx run-many --target=lint --all=true",
+    "e2e": "nx e2e student-hive-e2e",
+    "e2e:ci": "nx run-many --target=e2e --all --maxParallel=5 --browser chrome",
+    "e2e:open": "nx e2e student-hive-e2e --watch",
+    "format": "nx format:write",
+    "format:write": "nx format:write",
+    "format:check": "nx format:check"
   },
   "private": true,
   "dependencies": {

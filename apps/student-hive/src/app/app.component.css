@@ -1,0 +1,12 @@
+#background-vid {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  z-index: -1;
+}
+
+:host {
+  color: #00c2db;
+}

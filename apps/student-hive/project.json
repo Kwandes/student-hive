@@ -1,0 +1,96 @@
+{
+  "projectType": "application",
+  "root": "apps/student-hive",
+  "sourceRoot": "apps/student-hive/src",
+  "prefix": "student-hive",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/student-hive",
+        "index": "apps/student-hive/src/index.html",
+        "main": "apps/student-hive/src/main.ts",
+        "polyfills": "apps/student-hive/src/polyfills.ts",
+        "tsConfig": "apps/student-hive/tsconfig.app.json",
+        "assets": [
+          "apps/student-hive/src/favicon.ico",
+          "apps/student-hive/src/assets"
+        ],
+        "styles": ["apps/student-hive/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/student-hive/src/environments/environment.ts",
+              "with": "apps/student-hive/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "student-hive:build:production"
+        },
+        "development": {
+          "browserTarget": "student-hive:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/student-hive/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "student-hive:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/student-hive/src/**/*.ts",
+          "apps/student-hive/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/student-hive"],
+      "options": {
+        "jestConfig": "apps/student-hive/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

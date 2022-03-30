@@ -1,0 +1,28 @@
+{
+  "root": "apps/student-hive-e2e",
+  "sourceRoot": "apps/student-hive-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/student-hive-e2e/cypress.json",
+        "devServerTarget": "student-hive:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "student-hive:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/student-hive-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["student-hive"]
+}

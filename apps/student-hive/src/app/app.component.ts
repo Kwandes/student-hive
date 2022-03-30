@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@student-hive/api-interfaces';
+import { Message } from '@student-hive/interfaces';
 
 @Component({
   selector: 'student-hive-root',

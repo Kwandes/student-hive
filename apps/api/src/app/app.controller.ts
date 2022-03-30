@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { Message } from '@student-hive/api-interfaces';
+import { Message } from '@student-hive/interfaces';
 
 import { AppService } from './app.service';
 

@@ -1,0 +1,27 @@
+# Continuous Integration workflow for validating file formatting and code conventions
+name: Format CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - run: git fetch --no-tags --prune --depth=5 origin ${{ github.event.pull_request.base.ref }}
+        # Install the apps using npm ci (ensures a clean install)
+      - run: npm ci
+      # check that the formatting is correct. Only checks files that have been modified from the base branch
+      - run: npm run format:check -- --base=origin/${{ github.event.pull_request.base.ref }}

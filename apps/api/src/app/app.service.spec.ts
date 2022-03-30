@@ -18,4 +18,10 @@ describe('AppService', () => {
       expect(service.getData()).toEqual({ message: 'Welcome to api!' });
     });
   });
+
+  describe('duplicate test', () => {
+        it('I will fail"', () => {
+      expect(service.getData()).toEqual({ message: 'Not welcome to api! Oh no what will I do? Guess imma fail' });
+    });
+  });
 });

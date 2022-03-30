@@ -10,4 +10,12 @@ describe('student-hive', () => {
     // Function helper example, see `../support/app.po.ts` file
     getGreeting().contains('Welcome student-hive');
   });
+
+  it('should fail the CI check :)', () => {
+    // Custom command example, see `../support/commands.ts` file
+    cy.login('my-email@something.com', 'myPassword');
+
+    // Function helper example, see `../support/app.po.ts` file
+    getGreeting().contains('Welcome student-hive SIKE now the title is incorrect and the test has failed');
+  });
 });

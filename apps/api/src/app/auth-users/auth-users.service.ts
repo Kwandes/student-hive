@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IAuthUser, ISignupRequest, Role } from '@student-hive/interfaces';
-import { EntityNotFoundError, Repository } from 'typeorm';
+import { Connection, EntityNotFoundError, Repository } from 'typeorm';
 import { AuthUser } from '../models/auth-user.entity';
 import { User } from '../models/user.entity';
 
@@ -11,7 +11,8 @@ export class AuthUsersService {
     @InjectRepository(AuthUser)
     private readonly authUserRepo: Repository<AuthUser>,
     @InjectRepository(User)
-    private readonly userRepo: Repository<User>
+    private readonly usersRepo: Repository<User>,
+    private connection: Connection
   ) {}
 
   /**
@@ -33,12 +34,34 @@ export class AuthUsersService {
     role: Role
   ): Promise<IAuthUser> {
     const { email, password } = signupRequestDto;
-    const newUser = this.authUserRepo.create({
-      email: email,
-      password: password,
-      role: role,
-    });
-    return this.authUserRepo.save(newUser);
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      let newAuthUser = await queryRunner.manager.create(AuthUser, {
+        email: email,
+        password: password,
+        role: role,
+      });
+      newAuthUser = await queryRunner.manager.save(newAuthUser);
+      const newUser = await queryRunner.manager.create(User, {
+        authUser: newAuthUser,
+        authUserId: newAuthUser.authUserId,
+      });
+      await queryRunner.manager.save(newUser);
+
+      await queryRunner.commitTransaction();
+      return newAuthUser;
+    } catch (err) {
+      // since we have errors lets rollback the changes we made
+      await queryRunner.rollbackTransaction();
+      Logger.warn(err);
+      // console.warn(err);
+    } finally {
+      // you need to release a queryRunner which was manually instantiated
+      await queryRunner.release();
+    }
   }
 
   /**
@@ -51,7 +74,7 @@ export class AuthUsersService {
       authUserId: id,
     });
     // delete the child entity explicitly since the cascade options in the relationship don't seem to work
-    this.userRepo.delete({
+    this.usersRepo.delete({
       authUserId: id,
     });
 

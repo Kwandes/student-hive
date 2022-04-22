@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Auth } from '../models/auth.entity';
+import { AuthUser } from '../models/auth-user.entity';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
@@ -41,7 +41,7 @@ class ConfigService {
       password: this.getValue('POSTGRES_PASSWORD', false) || 'root',
       database: this.getValue('POSTGRES_DATABASE', false) || 'student-hive',
 
-      entities: [Auth],
+      entities: [AuthUser],
     };
   }
 }

@@ -1,13 +1,13 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { IAuth, Role } from '@student-hive/interfaces';
+import { IAuthUser, Role } from '@student-hive/interfaces';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Base } from './base.entity';
 
-@Entity('auth')
-export class Auth extends Base implements IAuth {
+@Entity('auth-users')
+export class AuthUser extends Base implements IAuthUser {
   @ApiModelProperty()
   @PrimaryGeneratedColumn('uuid')
-  authId: string;
+  authUserId: string;
 
   @ApiModelProperty()
   @Column({ length: 254, unique: true })
@@ -18,6 +18,6 @@ export class Auth extends Base implements IAuth {
   password: string;
 
   @ApiModelProperty()
-  @Column({ type: 'enum', enum: Role, default: Role.admin })
+  @Column({ type: 'enum', enum: Role, default: Role.student })
   role: Role;
 }

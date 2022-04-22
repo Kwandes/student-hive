@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@local-storage": ["libs/local-storage/src/index.ts"],
       "@student-hive/interfaces": ["libs/interfaces/src/index.ts"]
     }
   },

@@ -3,6 +3,7 @@
   "projects": {
     "api": "apps/api",
     "interfaces": "libs/interfaces",
+    "local-storage": "libs/local-storage",
     "student-hive": "apps/student-hive",
     "student-hive-e2e": "apps/student-hive-e2e"
   }

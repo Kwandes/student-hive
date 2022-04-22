@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IAuthUser, ISignupRequest, Role } from '@student-hive/interfaces';
-import { Repository } from 'typeorm';
+import { EntityNotFoundError, Repository } from 'typeorm';
 import { AuthUser } from '../models/auth-user.entity';
+import { User } from '../models/user.entity';
 
 @Injectable()
 export class AuthUsersService {
   constructor(
     @InjectRepository(AuthUser)
-    private readonly authUserRepo: Repository<AuthUser>
+    private readonly authUserRepo: Repository<AuthUser>,
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>
   ) {}
 
   /**
@@ -36,5 +39,24 @@ export class AuthUsersService {
       role: role,
     });
     return this.authUserRepo.save(newUser);
+  }
+
+  /**
+   * Find a specific entity by its id.
+   * @param id id of the entity.
+   * @returns entity or EntityNotFound error.
+   */
+  async perish(id: string): Promise<void> {
+    const response = await this.authUserRepo.delete({
+      authUserId: id,
+    });
+    // delete the child entity explicitly since the cascade options in the relationship don't seem to work
+    this.userRepo.delete({
+      authUserId: id,
+    });
+
+    if (response.affected === 0) {
+      throw new EntityNotFoundError(AuthUser, id);
+    }
   }
 }

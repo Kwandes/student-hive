@@ -2,7 +2,10 @@ import {
   Body,
   Controller,
   DefaultValuePipe,
+  Delete,
   Get,
+  HttpCode,
+  Param,
   Post,
   Query,
   Request,
@@ -17,6 +20,7 @@ import {
   SignupRequest,
 } from '@student-hive/interfaces';
 import { AppService } from './app.service';
+import { AuthUsersService } from './auth-users/auth-users.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
@@ -27,7 +31,8 @@ import { EnumValidationPipe } from './shared/pipes/enum-validation.pipe';
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private authService: AuthService
+    private authService: AuthService,
+    private authUsersService: AuthUsersService
   ) {}
 
   @Get('hello')
@@ -79,5 +84,11 @@ export class AppController {
     role: Role
   ) {
     return this.authService.signup(signupRequestDto, role);
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  delete(@Param('id') id: string): Promise<void> {
+    return this.authUsersService.perish(id);
   }
 }

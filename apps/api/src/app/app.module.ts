@@ -5,11 +5,13 @@ import { AppService } from './app.service';
 import { AuthUsersModule } from './auth-users/auth-users.module';
 import { AuthModule } from './auth/auth.module';
 import { configService } from './config/config.service';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
     AuthModule,
     AuthUsersModule,
+    UsersModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
   ],
   controllers: [AppController],

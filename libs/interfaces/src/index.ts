@@ -3,3 +3,5 @@ export * from './lib/auth.dto';
 export * from './lib/auth.interface';
 export * from './lib/interfaces';
 export * from './lib/role.enum';
+export * from './lib/user.dto';
+export * from './lib/user.interface';

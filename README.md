@@ -1,5 +1,3 @@
-
-
 # StudentHive
 
 This project was generated using [Nx](https://nx.dev).
@@ -59,6 +57,14 @@ Libraries are shareable across libraries and applications. They can be imported 
 
 Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
+## Database
+
+The api requires connection to a Postgres database. You can run one locally with
+
+```docker
+docker run --name postgres --restart unless-stopped -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=student_hive -p 5432:5432 -d postgres
+```
+
 ## Code scaffolding
 
 Run `ng g component my-component --project=my-app` to generate a new component.
@@ -86,11 +92,6 @@ Run `nx graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-
-
-
-
 
 ## ☁ Nx Cloud
 

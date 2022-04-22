@@ -66,7 +66,7 @@ export class AppController {
   // The role query variable could be path of the DTO but this way I get to showcase the custom enum validation pipe :)
   @Post('auth/signup')
   @ApiOperation({
-    summary: `Create a user. Pass role query var with either 'user' or 'admin' value`,
+    summary: `Create a user. Pass role query var with either 'student' or 'teacher' value`,
   })
   @ApiOkResponse({ type: LoginResponse })
   async signup(

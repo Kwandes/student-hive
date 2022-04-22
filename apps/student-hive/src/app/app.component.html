@@ -1,31 +1,8 @@
-<video
-  autoplay
-  controls
-  [muted]="true"
-  [controls]="false"
-  loop
-  id="background-vid"
->
-  <source
-    src="https://media.istockphoto.com/videos/abstract-technology-big-data-background-concept-motion-of-digital-video-id1196121015"
-    type="video/mp4"
-  />
-</video>
-
-<div style="text-align: center">
-  <h1>Welcome to Student Hive!</h1>
-  <h3>Your number one GDPR violation webapp</h3>
-  <br /><br /><br />
-  <br /><br /><br />
-  <br /><br /><br />
-  <br /><br /><br />
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-    alt="Nx - Smart, Fast and Extensible Build System"
-  />
-</div>
-<br /><br /><br />
-<div style="text-align: center; margin-left: auto; margin-right: auto">
-  API says: {{ hello$ | async | json }}
+<div class="min-width">
+  <div class="full-page">
+    <router-outlet></router-outlet>
+    <div id="logout-btn-wrapper" *ngIf="isLoggedIn">
+      <button class="fancy-btn" (click)="logout()">Log Out</button>
+    </div>
+  </div>
 </div>

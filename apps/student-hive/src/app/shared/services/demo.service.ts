@@ -20,7 +20,10 @@ export class DemoService {
    * @returns observable of the API request
    */
   fetchStudentData(): Observable<IMessage> {
-    return this.http.get<IMessage>(`${env.apiUrl}/api/student`, httpOptions);
+    return this.http.get<IMessage>(
+      `${env.apiUrl}/api/auth/student`,
+      httpOptions
+    );
   }
 
   /**
@@ -28,6 +31,9 @@ export class DemoService {
    * @returns observable of the API request
    */
   fetchTeacherData(): Observable<IMessage> {
-    return this.http.get<IMessage>(`${env.apiUrl}/api/teacher`, httpOptions);
+    return this.http.get<IMessage>(
+      `${env.apiUrl}/api/auth/teacher`,
+      httpOptions
+    );
   }
 }

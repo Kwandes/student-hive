@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/student-hive",
         "index": "apps/student-hive/src/index.html",
@@ -17,8 +19,14 @@
           "apps/student-hive/src/favicon.ico",
           "apps/student-hive/src/assets"
         ],
-        "styles": ["apps/student-hive/src/styles.css"],
-        "scripts": []
+        "styles": [
+          "apps/student-hive/src/styles.css"
+        ],
+        "scripts": [],
+        "allowedCommonJsDependencies": [
+          "validator",
+          "@nestjs/swagger"
+        ]
       },
       "configurations": {
         "production": {
@@ -82,7 +90,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/student-hive"],
+      "outputs": [
+        "coverage/apps/student-hive"
+      ],
       "options": {
         "jestConfig": "apps/student-hive/jest.config.js",
         "passWithNoTests": true

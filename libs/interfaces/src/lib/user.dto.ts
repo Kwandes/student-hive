@@ -12,21 +12,24 @@ export class CreateUserRequest implements ICreateUserRequest {
   @ApiModelProperty()
   @IsNotEmpty()
   @MaxLength(30)
-  name: string;
+  @IsOptional()
+  name?: string;
 
   @ApiModelProperty()
   @IsNotEmpty()
   @MaxLength(50)
-  lastName: string;
+  @IsOptional()
+  lastName?: string;
 
   @ApiModelProperty()
   @IsDateString()
-  birthdate: Date;
+  @IsOptional()
+  birthdate?: Date;
 
   @ApiModelProperty({ example: '9b34ea5c-5c02-4fec-8e01-080d0fee40a5' })
   @IsNotEmpty()
   @IsUUID()
-  authUserId: string;
+  authUserId!: string;
 }
 
 export class updateUserRequest implements IUpdateUserRequest {

@@ -21,7 +21,16 @@ export class AuthUsersService {
    * @returns user or undefined.
    */
   async findOne(email: string): Promise<AuthUser | undefined> {
-    return this.authUserRepo.findOne({ where: { email: email } });
+    const authUser = await this.authUserRepo.findOne({
+      where: { email: email },
+      relations: ['user'],
+    });
+
+    // remove the eagerly-loaded authUser object from the nested user object
+    if (authUser?.user) {
+      delete authUser.user.authUser;
+    }
+    return authUser;
   }
 
   /**
@@ -52,6 +61,7 @@ export class AuthUsersService {
       await queryRunner.manager.save(newUser);
 
       await queryRunner.commitTransaction();
+      newAuthUser.user = newUser;
       return newAuthUser;
     } catch (err) {
       // since we have errors lets rollback the changes we made

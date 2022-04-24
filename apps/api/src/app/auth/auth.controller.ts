@@ -6,6 +6,7 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseUUIDPipe,
   Post,
   Query,
   Request,
@@ -18,6 +19,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import {
+  IJwtInfo,
   IMessage,
   LoginRequest,
   LoginResponse,
@@ -30,6 +32,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 import { Roles } from './roles.decorator';
+import { AuthUser } from './user.decorator';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -73,7 +76,7 @@ export class AuthController {
   // The role query variable could be path of the DTO but this way I get to showcase the custom enum validation pipe :)
   @Post('signup')
   @ApiOperation({
-    summary: `Create a user. Pass role query var with either 'student' or 'teacher' value.`,
+    summary: `Create a user. Pass role query var with either 'student' or 'teacher' value'`,
   })
   @ApiOkResponse({ type: LoginResponse })
   async signup(
@@ -88,18 +91,27 @@ export class AuthController {
     return this.authService.signup(signupRequestDto, role);
   }
 
-  /*
-    TODO - only allows teachers or account owners to perform this action.
-    Can be done by reading auth info and, if student, comparing it against the auth user ID.
-    Potentially split into two endpoints, Delete /users/:id used by teachers, and Delete /users/me to delete auth users account.
-  */
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Delete('me')
+  @ApiOperation({
+    summary: 'Delete the account of the authenticated user',
+  })
+  @HttpCode(204)
+  deleteMe(@AuthUser() authUser: IJwtInfo): Promise<void> {
+    return this.authUsersService.perish(authUser.userId);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.teacher)
   @Delete(':id')
   @ApiOperation({
     summary:
-      'Delete a given account and all of their information (Teacher). If called by student, will delete their account if the id matches (WiP).',
+      'Delete a given account and all of their information. Role: Teacher',
   })
   @HttpCode(204)
-  delete(@Param('id') id: string): Promise<void> {
+  delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     return this.authUsersService.perish(id);
   }
 }

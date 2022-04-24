@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { IJwtInfo } from '@student-hive/interfaces';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { jwtConstants } from './constants';
 
@@ -13,7 +14,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
-    return { userId: payload.sub, email: payload.email };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async validate(payload: any): Promise<IJwtInfo> {
+    return {
+      email: payload.email,
+      userId: payload.userId,
+      authUserId: payload.authUserId,
+    };
   }
 }

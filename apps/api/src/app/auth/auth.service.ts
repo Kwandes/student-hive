@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import {
   IAuthUser,
+  IJwtInfo,
   ILoginResponse,
   ISignupRequest,
   ISignupResponse,
@@ -39,7 +40,11 @@ export class AuthService {
    * @returns generated JWT.
    */
   async login(user: IAuthUser): Promise<ILoginResponse> {
-    const payload = { email: user.email, sub: user.authUserId };
+    const payload: IJwtInfo = {
+      email: user.email,
+      authUserId: user.authUserId,
+      userId: user.user.userId,
+    };
     return {
       accessToken: this.jwtService.sign(payload),
       role: user.role,

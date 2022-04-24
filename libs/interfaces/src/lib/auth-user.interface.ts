@@ -9,3 +9,9 @@ export interface IAuthUser extends IBase {
   role: Role;
   user?: IUser;
 }
+
+export interface IJwtInfo {
+  email: string;
+  authUserId: string;
+  userId?: string;
+}

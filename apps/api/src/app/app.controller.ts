@@ -11,7 +11,7 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import {
   IMessage,
   LoginRequest,
@@ -40,12 +40,14 @@ export class AppController {
     return this.appService.getData();
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('protected')
   getConfidentialData(): IMessage {
     return { message: 'confidential data' };
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('student')
   @Roles(Role.student)
@@ -53,6 +55,7 @@ export class AppController {
     return { message: 'Student data' };
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Roles(Role.teacher)
   @Get('teacher')

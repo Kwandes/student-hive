@@ -35,6 +35,7 @@ async function bootstrap() {
     .setTitle('Student Hive API')
     .setDescription('Lorem Ipsum here I guess. Who reads this anyway?')
     .setVersion('6.9')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

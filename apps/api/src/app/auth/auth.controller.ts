@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  DefaultValuePipe,
   Delete,
   Get,
   HttpCode,
@@ -25,9 +24,9 @@ import {
   LoginResponse,
   Role,
   SignupRequest,
+  SignupRequestQuery,
 } from '@student-hive/interfaces';
 import { AuthUsersService } from '../auth-users/auth-users.service';
-import { EnumValidationPipe } from '../shared/pipes/enum-validation.pipe';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
@@ -81,13 +80,13 @@ export class AuthController {
   @ApiOkResponse({ type: LoginResponse })
   async signup(
     @Body() signupRequestDto: SignupRequest,
-    @Query(
-      'role',
-      new EnumValidationPipe(Role),
-      new DefaultValuePipe(Role.student)
-    )
-    role: Role
+    @Query()
+    query: SignupRequestQuery
   ) {
+    let { role } = query;
+    if (role === undefined) {
+      role = Role.student;
+    }
     return this.authService.signup(signupRequestDto, role);
   }
 

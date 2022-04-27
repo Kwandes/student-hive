@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { IsNotEmpty } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
 import {
   ILoginRequest,
   ILoginResponse,
@@ -25,6 +25,18 @@ export class SignupRequest implements ISignupRequest {
   @ApiModelProperty()
   @IsNotEmpty()
   password!: string;
+}
+
+export class SignupRequestQuery {
+  @ApiModelProperty({
+    type: 'enum',
+    enum: Object.keys(Role),
+    required: false,
+    default: Role.student,
+  })
+  @IsEnum(Role)
+  @IsOptional()
+  role?: Role;
 }
 
 export class LoginResponse implements ILoginResponse {

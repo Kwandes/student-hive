@@ -15,7 +15,8 @@
     "e2e:open": "nx e2e student-hive-e2e --watch",
     "format": "nx format:write",
     "format:write": "nx format:write",
-    "format:check": "nx format:check"
+    "format:check": "nx format:check",
+    "seed": "nx run seeder:build && node ./dist/apps/seeder/main"
   },
   "private": true,
   "dependencies": {

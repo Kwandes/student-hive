@@ -7,6 +7,7 @@ export interface IUser extends IBase {
   lastname?: string;
   birthdate?: Date;
   authUser: IAuthUser;
+  authUserId: string;
 }
 
 export interface ICreateUserRequest {

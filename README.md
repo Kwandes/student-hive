@@ -65,6 +65,9 @@ The api requires connection to a Postgres database. You can run one locally with
 docker run --name postgres --restart unless-stopped -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=student_hive -p 5432:5432 -d postgres
 ```
 
+The app features a seeding service that will populate the database with sample data.\
+Simpy run `npm run seed` to populate the database.
+
 ## Code scaffolding
 
 Run `ng g component my-component --project=my-app` to generate a new component.

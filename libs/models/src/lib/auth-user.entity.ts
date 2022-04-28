@@ -12,27 +12,31 @@ import { User } from './user.entity';
 
 @Entity('auth-users')
 export class AuthUser extends Base implements IAuthUser {
-  @ApiModelProperty()
+  @ApiModelProperty({ example: '9b34ea5c-5c02-4fec-8e01-080d0fee40a5' })
   @PrimaryGeneratedColumn('uuid')
-  authUserId: string;
+  authUserId!: string;
 
   @ApiModelProperty()
   @Column({ length: 254, unique: true })
-  email: string;
+  email!: string;
 
   @ApiModelProperty()
   @Column({ length: 120 })
-  password: string;
+  password!: string;
 
-  @ApiModelProperty()
+  @ApiModelProperty({ example: Role.student })
   @Column({ type: 'enum', enum: Role, default: Role.student })
-  role: Role;
+  role!: Role;
 
   // The cascade options don't seem to be working properly.
   // Deletion of child (user) correctly results int he user field being set to <null>, but deletion of parent (AuthUser) does not affect the child at all.
   // Because of this the service explictly deletes the user.
   // I kept all of the options wiht their comments to help future devs troubleshoot.
-  @ApiModelProperty()
+
+  @ApiModelProperty({
+    example: '9b34ea5c-5c02-4fec-8e01-080d0fee40a5',
+    required: false,
+  })
   @OneToOne(() => User, (user: User) => user.authUser, {
     cascade: true, // propagate changes of this object to the associated user entity, but not deletion
     onDelete: 'SET NULL', // will cause the userId field to be set to null if user gets deleted

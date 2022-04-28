@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
-    this.authService.login({ username: email, password: password }).subscribe({
+    this.authService.login({ email: email, password: password }).subscribe({
       next: (response) => {
         this.isLoading = false;
         this.alert = {

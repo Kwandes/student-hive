@@ -1,7 +1,7 @@
 import { Role } from './role.enum';
 
 export interface ILoginRequest {
-  username: string;
+  email: string;
   password: string;
 }
 

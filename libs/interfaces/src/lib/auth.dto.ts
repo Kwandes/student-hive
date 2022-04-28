@@ -10,7 +10,7 @@ import { Role } from './role.enum';
 export class LoginRequest implements ILoginRequest {
   @ApiModelProperty()
   @IsNotEmpty()
-  username!: string;
+  email!: string;
 
   @ApiModelProperty()
   @IsNotEmpty()

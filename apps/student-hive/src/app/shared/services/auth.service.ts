@@ -33,11 +33,11 @@ export class AuthService {
    * @returns observable of the API request
    */
   login(params: ILoginRequest): Observable<ILoginResponse> {
-    const { username, password } = params;
+    const { email, password } = params;
     return this.http.post<ILoginResponse>(
       `${env.apiUrl}/api/auth/login`,
       {
-        username,
+        email,
         password,
       },
       httpOptions

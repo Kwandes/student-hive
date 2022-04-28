@@ -1,8 +1,5 @@
 .full-page {
   min-height: 100vh;
-  background-image: url('apps/student-hive/src/assets/background-images/particles-dark.png');
-  background-color: grey;
-  background-repeat: repeat;
 }
 
 .min-width {

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ILoginResponse, IMessage } from '@student-hive/interfaces';
 import { LocalStorageService, LocalStorageVars } from '@local-storage';
+import { ILoginResponse, IMessage } from '@student-hive/interfaces';
 import { environment as env } from '../environments/environment';
 import { AuthService } from './shared/services/auth.service';
 
@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   loggedInCheckInterval!: number;
   hello$ = this.http.get<IMessage>(`${env.apiUrl}/api/hello`);
+
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService,

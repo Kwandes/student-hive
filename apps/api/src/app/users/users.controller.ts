@@ -1,3 +1,4 @@
+import { User } from '@models';
 import {
   Body,
   Controller,
@@ -26,7 +27,6 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { AuthUser } from '../auth/user.decorator';
-import { User } from '../models/user.entity';
 import { UsersService } from './users.service';
 
 @ApiTags('Users')

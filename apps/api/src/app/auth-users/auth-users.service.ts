@@ -1,9 +1,8 @@
+import { AuthUser, User } from '@models';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IAuthUser, ISignupRequest, Role } from '@student-hive/interfaces';
 import { Connection, EntityNotFoundError, Repository } from 'typeorm';
-import { AuthUser } from '../models/auth-user.entity';
-import { User } from '../models/user.entity';
 
 @Injectable()
 export class AuthUsersService {

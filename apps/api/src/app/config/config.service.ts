@@ -1,6 +1,5 @@
+import { AuthUser, User } from '@models';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { AuthUser } from '../models/auth-user.entity';
-import { User } from '../models/user.entity';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();

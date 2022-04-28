@@ -39,7 +39,7 @@ class ConfigService {
       port: parseInt(this.getValue('POSTGRES_PORT', false)) || 5432,
       username: this.getValue('POSTGRES_USER', false) || 'root',
       password: this.getValue('POSTGRES_PASSWORD', false) || 'root',
-      database: this.getValue('POSTGRES_DATABASE', false) || 'student-hive',
+      database: this.getValue('POSTGRES_DATABASE', false) || 'student_hive',
 
       entities: [AuthUser, User],
     };

@@ -2,9 +2,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgParticlesModule } from 'ng-particles';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { materialModules } from './material-modules.constant';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -32,7 +34,9 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    materialModules,
     NgParticlesModule,
+    BrowserAnimationsModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

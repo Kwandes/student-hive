@@ -1,14 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ILoginResponse, Role } from '@student-hive/interfaces';
 import { LocalStorageService, LocalStorageVars } from '@local-storage';
+import { ILoginResponse, Role } from '@student-hive/interfaces';
 import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'student-hive-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+  styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;

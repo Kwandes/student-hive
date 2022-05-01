@@ -13,6 +13,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { SignupComponent } from './pages/signup/signup.component';
 import { StudentComponent } from './pages/student/student.component';
 import { TeacherComponent } from './pages/teacher/teacher.component';
+import { MatrixTerminalComponent } from './shared/components/matrix-terminal/matrix-terminal.component';
 import { RadarComponent } from './shared/components/radar/radar.component';
 import { TsParticlesComponent } from './shared/components/ts-particles/ts-particles.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
@@ -28,6 +29,7 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
     TeacherComponent,
     TsParticlesComponent,
     RadarComponent,
+    MatrixTerminalComponent,
   ],
   imports: [
     BrowserModule,

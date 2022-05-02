@@ -25,6 +25,12 @@
   width: 100%;
 }
 
+#readTheBoringStuffText {
+  margin-top: 2px;
+  font-size: x-small;
+  color: #42d6ca;
+}
+
 input {
   text-decoration: none;
   background-color: transparent;
@@ -77,7 +83,7 @@ hr {
 .wrapper {
   position: relative;
   width: 400px;
-  height: 300px;
+  min-height: 300px;
   border-radius: 50px;
   overflow: hidden;
   padding: 2rem;

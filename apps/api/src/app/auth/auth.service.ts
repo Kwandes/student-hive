@@ -67,13 +67,7 @@ export class AuthService {
       );
     }
     const hashedPassword = await this.encodePassword(password);
-    const user = await this.authUsersService.create(
-      {
-        email: email,
-        password: hashedPassword,
-      },
-      role
-    );
+    const user = await this.authUsersService.create(signupRequestDto, role);
     return await this.login(user);
   }
 

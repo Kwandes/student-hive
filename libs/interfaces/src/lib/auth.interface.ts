@@ -13,6 +13,9 @@ export interface ILoginResponse {
 export interface ISignupRequest {
   email: string;
   password: string;
+  name?: string;
+  lastName?: string;
+  birthdate?: Date;
 }
 
 export interface ISignupResponse {

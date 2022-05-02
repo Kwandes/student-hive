@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsDateString, IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
 import {
   ILoginRequest,
   ILoginResponse,
@@ -25,6 +25,21 @@ export class SignupRequest implements ISignupRequest {
   @ApiModelProperty()
   @IsNotEmpty()
   password!: string;
+
+  @ApiModelProperty()
+  @IsNotEmpty()
+  @IsOptional()
+  name?: string;
+
+  @ApiModelProperty()
+  @IsNotEmpty()
+  @IsOptional()
+  lastName?: string;
+
+  @ApiModelProperty()
+  @IsDateString()
+  @IsOptional()
+  birthdate?: Date;
 }
 
 export class SignupRequestQuery {

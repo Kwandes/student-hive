@@ -27,6 +27,9 @@ export class SignupComponent implements OnInit {
   roleArray: string[];
   isLoggedIn = false;
 
+  // Very well named variable to control what stage the registration is in (email + password + role or user details like name)
+  stageOnePassed = false;
+
   constructor(
     private readonly router: Router,
     private readonly authService: AuthService,
@@ -47,6 +50,10 @@ export class SignupComponent implements OnInit {
         Validators.maxLength(100),
       ]),
       role: new FormControl(Role.student),
+      readTheBoringStuff: new FormControl('', [Validators.requiredTrue]),
+      name: new FormControl(''),
+      lastName: new FormControl(''),
+      birthdate: new FormControl(''),
     });
     this.isLoggedIn =
       this.localStorageService.getItem<ILoginResponse>(
@@ -66,8 +73,20 @@ export class SignupComponent implements OnInit {
     const email = this.signupForm.get('email')?.value;
     const password = this.signupForm.get('password')?.value;
     const role = this.signupForm.get('role')?.value;
+    const name = this.signupForm.get('name')?.value;
+    const lastName = this.signupForm.get('lastName')?.value;
+    const birthdate = this.signupForm.get('birthdate')?.value;
     this.authService
-      .register({ email: email, password: password }, role)
+      .register(
+        {
+          email: email,
+          password: password,
+          name: name === '' ? undefined : name,
+          lastName: lastName === '' ? undefined : lastName,
+          birthdate: birthdate === '' ? undefined : birthdate,
+        },
+        role
+      )
       .subscribe({
         next: (response) => {
           this.isLoading = false;
@@ -117,12 +136,20 @@ export class SignupComponent implements OnInit {
     );
   }
 
+  beginStageTwo() {
+    this.stageOnePassed = true;
+  }
+
   /**
    * Allow pressing the log in button by pressing enter while the credentials are valid.
    */
   @HostListener('document:keydown.enter') enterKeyPressed() {
     if (this.signupEnabled()) {
-      this.onSubmit();
+      if (this.stageOnePassed) {
+        this.onSubmit();
+      } else {
+        this.stageOnePassed = true;
+      }
     }
   }
 

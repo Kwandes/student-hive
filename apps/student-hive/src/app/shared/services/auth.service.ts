@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorageService, LocalStorageVars } from '@local-storage';
 import {
   ILoginRequest,
   ILoginResponse,
@@ -8,7 +9,6 @@ import {
   ISignupResponse,
   Role,
 } from '@student-hive/interfaces';
-import { LocalStorageService, LocalStorageVars } from '@local-storage';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
 
@@ -50,13 +50,12 @@ export class AuthService {
    * @returns observable of the API request
    */
   register(params: ISignupRequest, role: Role): Observable<ISignupResponse> {
-    const { email, password } = params;
+    // Remove null and undefined values
+    params = JSON.parse(JSON.stringify(params));
+
     return this.http.post<ISignupResponse>(
       `${env.apiUrl}/api/auth/signup?role=${role}`,
-      {
-        email,
-        password,
-      },
+      params,
       httpOptions
     );
   }

@@ -41,7 +41,7 @@ export class AuthUsersService {
     signupRequestDto: ISignupRequest,
     role: Role
   ): Promise<IAuthUser> {
-    const { email, password } = signupRequestDto;
+    const { email, password, name, lastName, birthdate } = signupRequestDto;
     const queryRunner = this.connection.createQueryRunner();
 
     await queryRunner.connect();
@@ -54,6 +54,9 @@ export class AuthUsersService {
       });
       newAuthUser = await queryRunner.manager.save(newAuthUser);
       const newUser = await queryRunner.manager.create(User, {
+        name: name,
+        lastname: lastName,
+        birthdate: birthdate,
         authUser: newAuthUser,
         authUserId: newAuthUser.authUserId,
       });

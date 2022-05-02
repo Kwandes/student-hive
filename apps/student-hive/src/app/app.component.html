@@ -1,5 +1,38 @@
 <div class="min-width">
   <div class="full-page">
+    <nav>
+      <ul style="list-style-type: armenian">
+        <li>
+          <button class="fancy-btn" routerLink="home">Home</button>
+        </li>
+        <li>
+          <button class="fancy-btn" routerLink="login">Authenticate</button>
+        </li>
+        <li>
+          <button class="fancy-btn" routerLink="signup">Sell your data</button>
+        </li>
+        <li>
+          <button class="fancy-btn" routerLink="whatDidYouThinkThisWouldBe">
+            404
+          </button>
+        </li>
+        <li *ngIf="role === 'student'">
+          <button class="fancy-btn" routerLink="student">
+            Students secrets
+          </button>
+        </li>
+        <li *ngIf="role === 'teacher'">
+          <button class="fancy-btn" routerLink="teacher">
+            Exam cheatsheet stolen from the teacher
+          </button>
+        </li>
+        <li *ngIf="isLoggedIn">
+          <button class="fancy-btn" (click)="logout()">
+            De-authenticate Thyself
+          </button>
+        </li>
+      </ul>
+    </nav>
     <router-outlet></router-outlet>
     <div id="logout-btn-wrapper" *ngIf="isLoggedIn">
       <button class="fancy-btn" (click)="logout()">Log Out</button>

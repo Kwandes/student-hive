@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LocalStorageService, LocalStorageVars } from '@local-storage';
 import { ILoginResponse, Role } from '@student-hive/interfaces';
 import { AuthService } from '../../shared/services/auth.service';
@@ -27,6 +28,7 @@ export class SignupComponent implements OnInit {
   isLoggedIn = false;
 
   constructor(
+    private readonly router: Router,
     private readonly authService: AuthService,
     private readonly localStorageService: LocalStorageService
   ) {
@@ -77,6 +79,21 @@ export class SignupComponent implements OnInit {
             accessToken: response.accessToken,
             role: response.role,
           });
+          // Redirect the user to the roles' page
+          switch (response.role) {
+            case Role.student: {
+              this.router.navigate(['/student']);
+              break;
+            }
+            case Role.teacher: {
+              this.router.navigate(['/teacher']);
+              break;
+            }
+            case Role.admin: {
+              this.router.navigate(['/admin']);
+              break;
+            }
+          }
         },
         error: (err: HttpErrorResponse) => {
           console.error(err);

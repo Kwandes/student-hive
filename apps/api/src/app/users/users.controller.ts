@@ -36,9 +36,9 @@ export class UsersController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.teacher)
+  @Roles(Role.teacher, Role.admin)
   @Get('')
-  @ApiOperation({ summary: 'Get a list of all users. Role: Teacher' })
+  @ApiOperation({ summary: 'Get a list of all users. Role: Teacher, Admin' })
   @ApiOkResponse({ type: [User] })
   async getAll(): Promise<IUser[]> {
     return this.usersService.findAll();
@@ -55,20 +55,20 @@ export class UsersController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.teacher)
+  @Roles(Role.teacher, Role.admin)
   @Get(':id')
-  @ApiOperation({ summary: 'Get a a user by id. Role: Teacher' })
+  @ApiOperation({ summary: 'Get a a user by id. Role: Teacher, Admin' })
   @ApiOkResponse({ type: User })
   get(@Param('id', ParseUUIDPipe) id: string): Promise<IUser> {
     return this.usersService.findOne(id);
   }
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.teacher)
+  @Roles(Role.teacher, Role.admin)
   @Post('')
   @ApiOperation({
     summary:
-      'Obsolete endpoint, used to create user data to connect with an auth user. Role: Teacher',
+      'Obsolete endpoint, used to create user data to connect with an auth user. Role: Teacher, Admin',
   })
   @ApiOkResponse({ type: User })
   create(@Body() createRequest: CreateUserRequest): Promise<IUser> {
@@ -89,9 +89,9 @@ export class UsersController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.teacher)
+  @Roles(Role.teacher, Role.admin)
   @Put(':id')
-  @ApiOperation({ summary: 'Update user by id. Role: Teacher' })
+  @ApiOperation({ summary: 'Update user by id. Role: Teacher, Admin' })
   @ApiOkResponse({ type: User })
   update(
     @Param('id', ParseUUIDPipe) id: string,
@@ -102,12 +102,12 @@ export class UsersController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.teacher)
+  @Roles(Role.teacher, Role.admin)
   @Delete(':id')
   @HttpCode(204)
   @ApiOperation({
     summary:
-      'Delete a specific user information. Does not remove auth user info. Role: Teacher',
+      'Delete a specific user information. Does not remove auth user info. Role: Teacher, Admin',
   })
   delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     return this.usersService.perish(id);

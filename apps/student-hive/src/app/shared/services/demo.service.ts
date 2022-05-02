@@ -36,4 +36,12 @@ export class DemoService {
       httpOptions
     );
   }
+
+  /**
+   * Fetch admins confidential data;
+   * @returns observable of the API request
+   */
+  fetchAdminData(): Observable<IMessage> {
+    return this.http.get<IMessage>(`${env.apiUrl}/api/auth/admin`, httpOptions);
+  }
 }

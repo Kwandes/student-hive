@@ -26,6 +26,11 @@
             Exam cheatsheet stolen from the teacher
           </button>
         </li>
+        <li *ngIf="role === 'admin'">
+          <button class="fancy-btn" routerLink="admin">
+            Run as Administrator
+          </button>
+        </li>
         <li *ngIf="isLoggedIn">
           <button class="fancy-btn" (click)="logout()">
             De-authenticate Thyself

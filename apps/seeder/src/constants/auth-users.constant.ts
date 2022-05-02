@@ -14,4 +14,10 @@ export const authUsers: IAuthUser[] = [
     password: '$2b$10$h1PegDvn0XBbESh5b5dJOOZHj.4Ru6s/CPUzlSOm9hv5V6UY3q5GC',
     role: Role.teacher,
   },
+  {
+    authUserId: '238777fb-67ff-483f-96a9-24cd993ffb88',
+    email: 'admin@example.com',
+    password: '$2b$10$h1PegDvn0XBbESh5b5dJOOZHj.4Ru6s/CPUzlSOm9hv5V6UY3q5GC',
+    role: Role.admin,
+  },
 ];

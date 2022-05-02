@@ -58,10 +58,18 @@ export class AuthController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.teacher)
+  @Roles(Role.teacher, Role.admin)
   @Get('teacher')
   getTeacherData(): IMessage {
     return { message: 'Teacher data' };
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.admin)
+  @Get('admin')
+  getAdminData(): IMessage {
+    return { message: 'Admin data' };
   }
 
   @UseGuards(LocalAuthGuard)
@@ -103,11 +111,11 @@ export class AuthController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.teacher)
+  @Roles(Role.teacher, Role.admin)
   @Delete(':id')
   @ApiOperation({
     summary:
-      'Delete a given account and all of their information. Role: Teacher',
+      'Delete a given account and all of their information. Role: Teacher, Admin',
   })
   @HttpCode(204)
   delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {

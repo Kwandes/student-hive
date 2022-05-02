@@ -7,6 +7,7 @@ import { NgParticlesModule } from 'ng-particles';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { materialModules } from './material-modules.constant';
+import { AdminComponent } from './pages/admin/admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -27,6 +28,7 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
     HomeComponent,
     StudentComponent,
     TeacherComponent,
+    AdminComponent,
     TsParticlesComponent,
     RadarComponent,
     MatrixTerminalComponent,

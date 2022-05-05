@@ -8,11 +8,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { materialModules } from './material-modules.constant';
 import { AdminComponent } from './pages/admin/admin.component';
+import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { StudentAttendanceComponent } from './pages/student/attendance/attendance.component';
+import { StudentClassesComponent } from './pages/student/classes/classes.component';
+import { StudentDashboardComponent } from './pages/student/dashboard/dashboard.component';
 import { StudentComponent } from './pages/student/student.component';
+import { TeacherClassesComponent } from './pages/teacher/classes/classes.component';
+import { TeacherDashboardComponent } from './pages/teacher/dashboard/dashboard.component';
+import { StudentsListComponent } from './pages/teacher/students-list/students-list.component';
 import { TeacherComponent } from './pages/teacher/teacher.component';
 import { MatrixTerminalComponent } from './shared/components/matrix-terminal/matrix-terminal.component';
 import { RadarComponent } from './shared/components/radar/radar.component';
@@ -26,9 +34,21 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
     SignupComponent,
     PageNotFoundComponent,
     HomeComponent,
-    StudentComponent,
-    TeacherComponent,
+    ProfileComponent,
+    // Admin pages
     AdminComponent,
+    AdminDashboardComponent,
+    // Teacher pages
+    TeacherComponent,
+    TeacherDashboardComponent,
+    TeacherClassesComponent,
+    StudentsListComponent,
+    // Student pages
+    StudentComponent,
+    StudentDashboardComponent,
+    StudentClassesComponent,
+    StudentAttendanceComponent,
+    // funky components
     TsParticlesComponent,
     RadarComponent,
     MatrixTerminalComponent,

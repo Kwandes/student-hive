@@ -39,14 +39,18 @@ export class AuthGuard implements CanActivate {
     }
 
     // check if the user is authorized to view the given page
+    // if no authentication and trying to access a protected page - redirect to login
+    // if authenticated but wrong role - redirect to 404
     const accessInfo: ILoginResponse | null = this.authService.getAccessInfo();
     if (accessInfo === null) {
+      this.router.navigate(['/login']);
       return false;
     }
     const userRole: Role = accessInfo.role;
     const isAuthorized = userRole === requiredRole;
     if (!isAuthorized) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/404']);
+      return false;
     }
     return isAuthorized;
   }

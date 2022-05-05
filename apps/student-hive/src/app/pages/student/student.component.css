@@ -13,3 +13,7 @@
   flex-direction: column;
   margin-bottom: 40vh;
 }
+
+button {
+  margin: 10px;
+}

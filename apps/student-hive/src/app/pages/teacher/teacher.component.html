@@ -1,4 +1,16 @@
 <div id="wrapper">
   <h1>Confidential teacher info</h1>
   <h2>Info: {{ confidentialInfo }}</h2>
+  <div style="display: flex">
+    <button mat-raised-button color="accent" routerLink="dashboard">
+      Dashboard
+    </button>
+    <button mat-raised-button color="accent" routerLink="classes">
+      Classes
+    </button>
+    <button mat-raised-button color="accent" routerLink="students">
+      Students
+    </button>
+  </div>
+  <router-outlet></router-outlet>
 </div>

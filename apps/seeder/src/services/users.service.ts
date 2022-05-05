@@ -15,7 +15,6 @@ export class UsersSeederService {
   create(): Array<Promise<User>> {
     return users.map(async (user: IUser) => {
       try {
-        // const newUser = this.userRepository.create(user);
         return await this.userRepository.save(user);
       } catch (error) {
         throw new Error(error);

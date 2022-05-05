@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Connection, getManager } from 'typeorm';
+import { AttendancesSeederService } from './services/attendances.service';
 import { AuthUsersSeederService } from './services/auth-users.service';
 import { UsersSeederService } from './services/users.service';
 
@@ -9,7 +10,8 @@ export class SeedService {
     private readonly logger: Logger,
     private readonly connection: Connection,
     private readonly authUsersService: AuthUsersSeederService,
-    private readonly usersService: UsersSeederService
+    private readonly usersService: UsersSeederService,
+    private readonly attendancesService: AttendancesSeederService
   ) {}
 
   // ========================
@@ -21,6 +23,7 @@ export class SeedService {
     // Seed the entities
     await this.seedAuthUsers();
     await this.seedUsers();
+    await this.seedAttendances();
   }
 
   // ====================================
@@ -49,9 +52,18 @@ export class SeedService {
   private async cleanAll(entities) {
     try {
       const dbType = this.connection.options.type;
-
       const manager = getManager();
       const tables = entities.map((entity) => '"' + entity.tableName + '"');
+
+      if (dbType === 'mysql') {
+        // Can't delete from nor truncate multiple tables at once
+        // Can't truncate due to foreign key constraints
+        for (const table of tables) {
+          const query = `DELETE FROM ` + table.replaceAll(`"`, ``) + ';';
+          await manager.query(query);
+          console.log(`${table} has perished`);
+        }
+      }
 
       if (dbType === 'postgres') {
         const truncateSql = `TRUNCATE TABLE ${tables.join(
@@ -81,28 +93,37 @@ export class SeedService {
     this.logger.debug('✅ DATABASE RESET SUCCESSFUL');
   }
 
-  // ===========================
-  // === AUTH USER SEED METHODS ===
+  // ====================================
+  // === ENTITY SEEDING METHODS ====
   async seedAuthUsers() {
     try {
-      const users = await Promise.all(this.authUsersService.create());
-
-      this.logger.debug('✅ Auth users created');
-      return users;
+      const response = await Promise.all(this.authUsersService.create());
+      this.logger.debug(`✅ Auth Users created: ${response.length}`);
+      return response;
     } catch (error) {
+      this.logger.warn(`❌ Auth users failed to seed`);
       this.logger.error(error);
     }
   }
 
-  // ===========================
-  // === USER SEED METHODS ===
   async seedUsers() {
     try {
-      const users = await Promise.all(this.usersService.create());
-
-      this.logger.debug('✅ Users created');
-      return users;
+      const response = await Promise.all(this.usersService.create());
+      this.logger.debug(`✅ Users created: ${response.length}`);
+      return response;
     } catch (error) {
+      this.logger.warn(`❌ Users failed to seed`);
+      this.logger.error(error);
+    }
+  }
+
+  async seedAttendances() {
+    try {
+      const response = await Promise.all(this.attendancesService.create());
+      this.logger.debug(`✅ Attendances created: ${response.length}`);
+      return response;
+    } catch (error) {
+      this.logger.warn(`❌ Attendances failed to seed`);
       this.logger.error(error);
     }
   }

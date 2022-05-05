@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Role } from '@student-hive/interfaces';
+import { AdminStatsComponent } from './pages/admin/admin-stats/admin-stats.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { ClassManagementComponent } from './pages/admin/class-management/class-management.component';
 import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { DeviceManagementComponent } from './pages/admin/device-management/device-management.component';
+import { UserManagementComponent } from './pages/admin/user-management/user-management.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -53,6 +57,10 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard' },
       { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'users', component: UserManagementComponent },
+      { path: 'classes', component: ClassManagementComponent },
+      { path: 'devices', component: DeviceManagementComponent },
+      { path: 'stats', component: AdminStatsComponent },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'home' }, // Redirect to home page

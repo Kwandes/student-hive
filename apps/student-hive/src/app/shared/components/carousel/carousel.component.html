@@ -1,0 +1,39 @@
+<section id="management-options">
+  <div class="wall" style="transform: rotate(180deg)"></div>
+  <ngx-slick-carousel
+    style="width: 50vw"
+    class="carousel glow"
+    #slickModal="slick-carousel"
+    [config]="slideConfig"
+    (init)="slickInit($event)"
+    (breakpoint)="breakpoint($event)"
+    (afterChange)="afterChange($event)"
+    (beforeChange)="beforeChange($event)"
+  >
+    <div
+      ngxSlickItem
+      class="management-option slide"
+      *ngFor="let slide of mulitpliedSlides"
+      [routerLink]="slide.link"
+    >
+      {{ slide.text }}
+    </div>
+  </ngx-slick-carousel>
+  <div class="wall"></div>
+</section>
+<section id="options-nav">
+  <img
+    class="nav-option"
+    id="nav-option-previous"
+    src="assets/images/arrow.png"
+    alt="Previous"
+    (click)="slickModal.slickPrev()"
+  />
+  <img
+    class="nav-option"
+    id="nav-option-next"
+    src="assets/images/arrow.png"
+    alt="Next"
+    (click)="slickModal.slickNext()"
+  />
+</section>

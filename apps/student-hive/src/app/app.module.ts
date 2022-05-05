@@ -4,11 +4,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgParticlesModule } from 'ng-particles';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { materialModules } from './material-modules.constant';
+import { AdminStatsComponent } from './pages/admin/admin-stats/admin-stats.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { ClassManagementComponent } from './pages/admin/class-management/class-management.component';
 import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { DeviceManagementComponent } from './pages/admin/device-management/device-management.component';
+import { UserManagementComponent } from './pages/admin/user-management/user-management.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -22,6 +27,7 @@ import { TeacherClassesComponent } from './pages/teacher/classes/classes.compone
 import { TeacherDashboardComponent } from './pages/teacher/dashboard/dashboard.component';
 import { StudentsListComponent } from './pages/teacher/students-list/students-list.component';
 import { TeacherComponent } from './pages/teacher/teacher.component';
+import { CarouselComponent } from './shared/components/carousel/carousel.component';
 import { MatrixTerminalComponent } from './shared/components/matrix-terminal/matrix-terminal.component';
 import { RadarComponent } from './shared/components/radar/radar.component';
 import { TsParticlesComponent } from './shared/components/ts-particles/ts-particles.component';
@@ -38,6 +44,10 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
     // Admin pages
     AdminComponent,
     AdminDashboardComponent,
+    UserManagementComponent,
+    ClassManagementComponent,
+    DeviceManagementComponent,
+    AdminStatsComponent,
     // Teacher pages
     TeacherComponent,
     TeacherDashboardComponent,
@@ -52,6 +62,7 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
     TsParticlesComponent,
     RadarComponent,
     MatrixTerminalComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +72,7 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
     materialModules,
     NgParticlesModule,
     BrowserAnimationsModule,
+    SlickCarouselModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

@@ -37,10 +37,10 @@ export class MatrixTerminalComponent implements AfterViewInit, OnDestroy {
   // ======== Terminal ========
   terminalText = '...booting';
   terminalCmdInterval!: NodeJS.Timer;
-  commandsPerMinute = 60; // actually is less since there is a random delay for each command
+  commandsPerMinute = 100; // actually is less since there is a random delay for each command
   currentCommandIndex = 0;
   currentCommands: string[] = [];
-  maxDisplayedTerminalCommands = 16;
+  maxDisplayedTerminalCommands = 15;
 
   /**
    * Initialize the canvas and its context.
@@ -157,8 +157,8 @@ export class MatrixTerminalComponent implements AfterViewInit, OnDestroy {
    */
   calculateResolution(): void {
     this.canvasDimensions = {
-      width: (window.innerWidth / 8) * 3 + 8, // the + X accounts for the padding
-      height: (window.innerHeight / 5) * 2 + 8,
+      width: (window.innerWidth / 10) * 3 + 8, // the + X accounts for the padding
+      height: (window.innerHeight / 10) * 3.5 + 8,
     };
   }
 

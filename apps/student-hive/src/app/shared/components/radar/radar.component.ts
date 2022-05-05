@@ -12,5 +12,6 @@ export class RadarComponent implements OnInit {
     if (Math.floor(Math.random() * 4) === 1) {
       this.displayRadar = true;
     }
+    this.displayRadar = true;
   }
 }

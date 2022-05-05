@@ -1,3 +1,5 @@
+export * from './lib/attendance.dto';
+export * from './lib/attendance.interface';
 export * from './lib/auth-user.interface';
 export * from './lib/auth.dto';
 export * from './lib/auth.interface';

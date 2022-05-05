@@ -106,7 +106,7 @@ export class AuthController {
   })
   @HttpCode(204)
   deleteMe(@AuthUser() authUser: IJwtInfo): Promise<void> {
-    return this.authUsersService.perish(authUser.userId);
+    return this.authUsersService.perish(authUser.authUserId);
   }
 
   @ApiBearerAuth()

@@ -8,6 +8,7 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -18,6 +19,7 @@ import {
 } from '@nestjs/swagger';
 import {
   CreateAttendanceRequest,
+  GetAttendanceQuery,
   IAttendance,
   IJwtInfo,
   Role,
@@ -40,8 +42,8 @@ export class AttendancesController {
     summary: 'Get a list of all attendances. Role: Teacher, Admin',
   })
   @ApiOkResponse({ type: [Attendance] })
-  async getAll(): Promise<IAttendance[]> {
-    return this.attendancesService.findAll();
+  async getAll(@Query() query: GetAttendanceQuery): Promise<IAttendance[]> {
+    return this.attendancesService.findAll(query);
   }
 
   @ApiBearerAuth()
@@ -49,8 +51,14 @@ export class AttendancesController {
   @Get('me')
   @ApiOperation({ summary: 'Get authenticated users attendances info' })
   @ApiOkResponse({ type: [Attendance] })
-  getMe(@AuthUser() authUser: IJwtInfo): Promise<IAttendance[]> {
-    return this.attendancesService.findAllOfAuthUser(authUser.authUserId);
+  getMe(
+    @AuthUser() authUser: IJwtInfo,
+    @Query() query: GetAttendanceQuery
+  ): Promise<IAttendance[]> {
+    return this.attendancesService.findAllOfAuthUser(
+      authUser.authUserId,
+      query
+    );
   }
 
   @ApiBearerAuth()
@@ -62,6 +70,7 @@ export class AttendancesController {
   get(@Param('id', ParseUUIDPipe) id: string): Promise<IAttendance> {
     return this.attendancesService.findOne(id);
   }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Roles(Role.teacher, Role.admin)

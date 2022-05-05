@@ -13,4 +13,6 @@ export class Attendance extends Base implements IAttendance {
   @ApiModelProperty()
   @ManyToOne(() => AuthUser, { onDelete: 'CASCADE' }) // when associated auth user gets delated, the attendance entry should get removed as well
   authUser!: AuthUser;
+
+  // TODO - add lecture relationship. Requires lecture entity to be implemented
 }

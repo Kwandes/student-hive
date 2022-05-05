@@ -2,10 +2,12 @@ import { Attendance, AuthUser } from '@models';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
+  GetAttendanceQuery,
   IAttendance,
   ICreateAttendanceRequest,
 } from '@student-hive/interfaces';
-import { EntityNotFoundError, Repository } from 'typeorm';
+import { endOfDay, startOfDay } from 'date-fns';
+import { Between, EntityNotFoundError, Repository } from 'typeorm';
 
 @Injectable()
 export class AttendancesService {
@@ -33,13 +35,32 @@ export class AttendancesService {
    * @param id id of the auth user.
    * @returns entity list or EntityNotFound error.
    */
-  async findAllOfAuthUser(id: string): Promise<Attendance[]> {
-    return this.attendancesRepo.find({
-      where: {
-        authUser: {
-          authUserId: id,
-        },
+  async findAllOfAuthUser(
+    id: string,
+    query: GetAttendanceQuery
+  ): Promise<Attendance[]> {
+    const { date, classId } = query;
+    // days "start" at 22:00 of the previous day, and end on 21:59 of the given day
+    const findOptions = {
+      createdAt: Between(
+        startOfDay(new Date(date ? date : new Date())).toISOString(),
+        endOfDay(new Date(date ? date : new Date())).toISOString()
+      ),
+      // TODO - enable filtering by class. Requires class entity to be implemented
+      // class: {
+      //   classId: undefined,
+      // },
+      authUser: {
+        authUserId: id,
       },
+    };
+
+    if (!date) {
+      delete findOptions.createdAt;
+    }
+
+    return this.attendancesRepo.find({
+      where: findOptions,
       relations: ['authUser'],
     });
   }
@@ -48,8 +69,27 @@ export class AttendancesService {
    * Find all attendances.
    * @returns a list of attendances.
    */
-  async findAll(): Promise<IAttendance[]> {
-    return this.attendancesRepo.find({ relations: ['authUser'] });
+  async findAll(query: GetAttendanceQuery): Promise<IAttendance[]> {
+    const { date, classId } = query;
+    // days "start" at 22:00 of the previous day, and end on 21:59 of the given day
+    const findOptions = {
+      createdAt: Between(
+        startOfDay(new Date(date ? date : new Date())).toISOString(),
+        endOfDay(new Date(date ? date : new Date())).toISOString()
+      ),
+      // TODO - enable filtering by class. Requires class entity to be implemented
+      // class: {
+      //   classId: undefined,
+      // },
+    };
+
+    if (!date) {
+      delete findOptions.createdAt;
+    }
+    return this.attendancesRepo.find({
+      relations: ['authUser'],
+      where: findOptions,
+    });
   }
 
   /**

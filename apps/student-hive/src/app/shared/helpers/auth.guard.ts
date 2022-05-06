@@ -24,20 +24,6 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     const requiredRole: Role = route?.data['role'];
 
-    if (!requiredRole) {
-      // eslint-disable-next-line no-throw-literal
-      throw `
-        Roles array in the Route \`data\` property has to be provided for AuthGuard.
-          Example:
-          {
-            path: 'teacher',
-            component: TeacherComponent,
-            canActivate: [AuthGuard],
-            data: { role: Role.teacher }
-          },
-        `;
-    }
-
     // check if the user is authorized to view the given page
     // if no authentication and trying to access a protected page - redirect to login
     // if authenticated but wrong role - redirect to 404
@@ -45,6 +31,11 @@ export class AuthGuard implements CanActivate {
     if (accessInfo === null) {
       this.router.navigate(['/login']);
       return false;
+    }
+
+    // if no roles are required, pass the auth guard because the user is authorized
+    if (!requiredRole) {
+      return true;
     }
     const userRole: Role = accessInfo.role;
     const isAuthorized = userRole === requiredRole;

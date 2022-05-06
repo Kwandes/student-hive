@@ -1,1 +1,37 @@
-<p>profile works!</p>
+<section class="content-wrapper">
+  <span class="title">User Info</span>
+  <br />
+  <br />
+  <div *ngIf="isLoading">
+    <student-hive-loading-spinner></student-hive-loading-spinner>
+  </div>
+
+  <section *ngIf="!isLoading" class="user-info">
+    <div class="wall" style="transform: rotate(180deg)"></div>
+    <span class="subtitle">ID</span>
+    <span class="text">{{ user?.userId }}</span>
+    <br />
+    <span class="subtitle">Email</span>
+    <span class="text">{{ user?.authUser?.email }}</span>
+    <br />
+    <span class="subtitle">Name</span>
+    <span class="text">{{ user?.name + ' ' + user?.lastname }}</span>
+    <br />
+    <span class="subtitle">Role</span>
+    <span class="text" [ngClass]="getRoleClass()">
+      {{ user?.authUser?.role }}</span
+    >
+    <br />
+
+    <button
+      mat-raised-button
+      color="warn"
+      class="action-btn"
+      [disabled]="isLoading"
+      (click)="perish()"
+    >
+      {{ viewingThemselves ? 'Delete My Account' : 'Perish' }}
+    </button>
+    <div class="wall"></div>
+  </section>
+</section>

@@ -54,7 +54,6 @@ export class MatrixTerminalComponent implements AfterViewInit, OnDestroy {
 
     //making the canvas full screencanvas
     this.calculateResolution();
-    console.log(this.canvasDimensions);
 
     this.canvas.nativeElement.height = this.canvasDimensions.height;
     this.canvas.nativeElement.width = this.canvasDimensions.width;
@@ -74,14 +73,12 @@ export class MatrixTerminalComponent implements AfterViewInit, OnDestroy {
     this.matrix = charList.split('');
 
     const columns = this.canvasDimensions.width / this.fontSize; //number of columns for the rain
-    console.log('columns', columns);
 
     //x below is the x coordinate
     //1 = y co-ordinate of the drop(same for every drop initially)
     for (let x = 0; x < columns; x++) {
       this.drops.push(1);
     }
-    console.log('drops Init', this.drops);
 
     // draws the design boxes on based frequecy (FPS). Only draws them if there is a change to draw
     this.matrixInterval = setInterval(() => {

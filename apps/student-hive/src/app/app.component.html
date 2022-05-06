@@ -32,6 +32,11 @@
           </button>
         </li>
         <li *ngIf="isLoggedIn">
+          <button class="fancy-btn" routerLink="profile">
+            Check yourself out
+          </button>
+        </li>
+        <li *ngIf="isLoggedIn">
           <button class="fancy-btn" (click)="logout()">
             De-authenticate Thyself
           </button>

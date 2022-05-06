@@ -10,6 +10,7 @@ import { UserManagementComponent } from './pages/admin/user-management/user-mana
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { StudentAttendanceComponent } from './pages/student/attendance/attendance.component';
 import { StudentClassesComponent } from './pages/student/classes/classes.component';
@@ -24,6 +25,18 @@ import { AuthGuard } from './shared/helpers/auth.guard';
 const routes: Routes = [
   { path: 'home', component: HomeComponent }, // CookieGuard ensures that the user has accepted cookies
   { path: 'login', component: LoginComponent },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    data: {},
+  },
+  {
+    path: 'profile/:id',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    data: {},
+  },
   { path: 'signup', component: SignupComponent },
   {
     path: 'student',

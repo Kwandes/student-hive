@@ -93,4 +93,12 @@ export class AuthService {
     }
     return null;
   }
+
+  /**
+   * Delete specific account.
+   * @param id id of the account.
+   */
+  public perish(id: string): Observable<void> {
+    return this.http.delete<void>(`${env.apiUrl}/api/auth/${id}`);
+  }
 }

@@ -19,7 +19,7 @@
         ],
         "styles": [
           "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-          "apps/student-hive/src/styles.css",
+          "apps/student-hive/src/styles.scss",
           "node_modules/slick-carousel/slick/slick.scss",
           "node_modules/slick-carousel/slick/slick-theme.scss"
         ],

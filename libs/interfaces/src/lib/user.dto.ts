@@ -32,7 +32,7 @@ export class CreateUserRequest implements ICreateUserRequest {
   authUserId!: string;
 }
 
-export class updateUserRequest implements IUpdateUserRequest {
+export class UpdateUserRequest implements IUpdateUserRequest {
   @ApiModelProperty()
   @IsNotEmpty()
   @MaxLength(30)

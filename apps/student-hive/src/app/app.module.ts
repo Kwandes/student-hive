@@ -32,6 +32,7 @@ import { MatrixTerminalComponent } from './shared/components/matrix-terminal/mat
 import { RadarComponent } from './shared/components/radar/radar.component';
 import { TsParticlesComponent } from './shared/components/ts-particles/ts-particles.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
     RadarComponent,
     MatrixTerminalComponent,
     CarouselComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,

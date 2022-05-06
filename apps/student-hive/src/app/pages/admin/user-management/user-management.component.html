@@ -1,1 +1,90 @@
-<p>user-management works!</p>
+<br />
+<div style="display: flex; align-items: center">
+  <img
+    class="nav-option"
+    id="nav-option-previous"
+    src="assets/images/arrow.png"
+    alt="Go Back"
+    routerLink="../dashboard"
+  />
+  <span class="section-title">Users</span>
+</div>
+<div class="loading-container" *ngIf="isLoading">
+  <br />
+  <student-hive-loading-spinner></student-hive-loading-spinner>
+</div>
+<table
+  *ngIf="!isLoading"
+  mat-table
+  [dataSource]="usersList"
+  class="mat-elevation-z8 fancy-mat-table"
+  style="min-width: 700px; text-align: left"
+>
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let user">
+      {{ user.authUser.email }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let user">
+      {{ user.name + ' ' + user.lastname }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="birthdate">
+    <th mat-header-cell *matHeaderCellDef>Birthdate</th>
+    <td mat-cell *matCellDef="let user">{{ stripBirtdate(user.birthdate) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef>Role</th>
+    <td
+      mat-cell
+      *matCellDef="let user"
+      [ngClass]="getRoleClass(user.authUser.role)"
+    >
+      {{ user.authUser.role }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef style="text-align: center">
+      Actions
+    </th>
+    <td mat-cell *matCellDef="let user">
+      <div class="action-btn-wrapper">
+        <button
+          mat-raised-button
+          color="accent"
+          class="action-btn"
+          [disabled]="isLoading"
+          [routerLink]="'/profile/' + user.userId"
+        >
+          View
+        </button>
+        <div
+          [matTooltipDisabled]="user.authUser.role !== 'admin'"
+          matTooltip="You can't ban other admins"
+          matTooltipPosition="right"
+        >
+          <button
+            mat-raised-button
+            color="warn"
+            class="action-btn"
+            [disabled]="isLoading || user.authUser.role === 'admin'"
+            (click)="perish(user.authUser.authUserId)"
+          >
+            Perish
+          </button>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <div class="wall"></div>
+</table>

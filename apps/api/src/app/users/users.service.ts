@@ -5,7 +5,7 @@ import {
   IAuthUser,
   ICreateUserRequest,
   IUser,
-  updateUserRequest,
+  UpdateUserRequest,
 } from '@student-hive/interfaces';
 import { EntityNotFoundError, Repository } from 'typeorm';
 
@@ -84,7 +84,7 @@ export class UsersService {
    * @param id the id of the entity to update.
    * @returns updated entity.
    */
-  async update(request: updateUserRequest, id: string): Promise<IUser> {
+  async update(request: UpdateUserRequest, id: string): Promise<IUser> {
     const { name, lastName, birthdate } = request;
     const user = await this.usersRepo.findOneOrFail({ where: { userId: id } });
     if (name) {

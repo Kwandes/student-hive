@@ -22,7 +22,7 @@ import {
   IJwtInfo,
   IUser,
   Role,
-  updateUserRequest,
+  UpdateUserRequest,
 } from '@student-hive/interfaces';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -82,7 +82,7 @@ export class UsersController {
   @ApiOkResponse({ type: User })
   updateMe(
     @AuthUser() authUser: IJwtInfo,
-    @Body() updateRequest: updateUserRequest
+    @Body() updateRequest: UpdateUserRequest
   ): Promise<IUser> {
     return this.usersService.update(updateRequest, authUser.userId);
   }
@@ -95,7 +95,7 @@ export class UsersController {
   @ApiOkResponse({ type: User })
   update(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateRequest: updateUserRequest
+    @Body() updateRequest: UpdateUserRequest
   ): Promise<IUser> {
     return this.usersService.update(updateRequest, id);
   }

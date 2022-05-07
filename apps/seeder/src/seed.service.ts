@@ -3,6 +3,7 @@ import { Connection, getManager } from 'typeorm';
 import { AttendancesSeederService } from './services/attendances.service';
 import { AuthUsersSeederService } from './services/auth-users.service';
 import { UsersSeederService } from './services/users.service';
+import { ClassroomSeederService } from './services/classrooms.service';
 
 @Injectable()
 export class SeedService {
@@ -11,7 +12,8 @@ export class SeedService {
     private readonly connection: Connection,
     private readonly authUsersService: AuthUsersSeederService,
     private readonly usersService: UsersSeederService,
-    private readonly attendancesService: AttendancesSeederService
+    private readonly attendancesService: AttendancesSeederService,
+    private readonly classroomService: ClassroomSeederService
   ) {}
 
   // ========================
@@ -24,6 +26,7 @@ export class SeedService {
     await this.seedAuthUsers();
     await this.seedUsers();
     await this.seedAttendances();
+    await this.seedClassrooms();
   }
 
   // ====================================
@@ -124,6 +127,17 @@ export class SeedService {
       return response;
     } catch (error) {
       this.logger.warn(`❌ Attendances failed to seed`);
+      this.logger.error(error);
+    }
+  }
+
+  async seedClassrooms() {
+    try {
+      const response = await Promise.all(this.classroomService.create());
+      this.logger.debug(`✅ Classrooms created: ${response.length}`);
+      return response;
+    } catch (error) {
+      this.logger.warn(`❌ Classroom failed to seed.`);
       this.logger.error(error);
     }
   }

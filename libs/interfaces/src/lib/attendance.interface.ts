@@ -8,6 +8,7 @@ export interface IAttendance extends IBase {
   //lecture: ILecture
 }
 
+
 export interface ICreateAttendanceRequest {
   authUserId: string;
   // TODO - add lecture to attendance creation. Requires lecture entity to be implemented

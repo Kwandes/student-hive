@@ -19,8 +19,8 @@ export class AdminDashboardComponent {
       link: '../devices',
     },
     {
-      text: 'Statistics',
-      link: '../stats',
+      text: 'Classroom Management',
+      link: '../classrooms',
     },
   ];
 }

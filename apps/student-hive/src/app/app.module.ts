@@ -8,9 +8,9 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { materialModules } from './material-modules.constant';
-import { AdminStatsComponent } from './pages/admin/admin-stats/admin-stats.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ClassManagementComponent } from './pages/admin/class-management/class-management.component';
+import { ClassroomManagementComponent } from './pages/admin/classroom-management/classroom-management.component';
 import { AdminDashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { DeviceManagementComponent } from './pages/admin/device-management/device-management.component';
 import { UserManagementComponent } from './pages/admin/user-management/user-management.component';
@@ -28,11 +28,11 @@ import { TeacherDashboardComponent } from './pages/teacher/dashboard/dashboard.c
 import { StudentsListComponent } from './pages/teacher/students-list/students-list.component';
 import { TeacherComponent } from './pages/teacher/teacher.component';
 import { CarouselComponent } from './shared/components/carousel/carousel.component';
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { MatrixTerminalComponent } from './shared/components/matrix-terminal/matrix-terminal.component';
 import { RadarComponent } from './shared/components/radar/radar.component';
 import { TsParticlesComponent } from './shared/components/ts-particles/ts-particles.component';
 import { authInterceptorProviders } from './shared/helpers/auth.interceptor';
-import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
     UserManagementComponent,
     ClassManagementComponent,
     DeviceManagementComponent,
-    AdminStatsComponent,
+    ClassroomManagementComponent,
     // Teacher pages
     TeacherComponent,
     TeacherDashboardComponent,

@@ -1,0 +1,82 @@
+<header><h1>Student Hive - Attendance registration</h1></header>
+<content>
+  <section id="options-section">
+    <h1>Register Attendance</h1>
+    <form [formGroup]="form">
+      <br />
+      <label for="students">Select Student:</label>
+      <br />
+      <select
+        name="students"
+        id="students"
+        formControlName="student"
+        [attr.disabled]="isLoading ? '' : null"
+      >
+        <option *ngFor="let student of students" [ngValue]="student">
+          {{ student.authUser.email }}
+        </option>
+      </select>
+      <br />
+      <br />
+      <label for="readers">Select Reader:</label>
+      <br />
+      <select
+        name="readers"
+        id="readers"
+        formControlName="reader"
+        [attr.disabled]="isLoading ? '' : null"
+      >
+        <option *ngFor="let reader of readers" [ngValue]="reader">
+          {{ reader.classroom?.name }}
+        </option>
+      </select>
+      <br />
+      <br />
+      <label for="lectures">Select Lecture:</label>
+      <br />
+      <select
+        name="lectures"
+        id="lectures"
+        formControlName="lecture"
+        [attr.disabled]="isLoading ? '' : null"
+      >
+        <option *ngFor="let lecture of lectures" [ngValue]="lecture">
+          {{ lecture.start }}
+        </option>
+      </select>
+      <br />
+      <br />
+      <br />
+    </form>
+    <button
+      id="register-btn"
+      (click)="registerAttendance()"
+      [disabled]="isLoading || !isFormValid()"
+    >
+      Register
+    </button>
+  </section>
+
+  <div id="reader-section">
+    <img
+      id="reader-img"
+      src="assets/imagez/arudino-rfid-reader.png"
+      alt="RFID Reader"
+      [ngClass]="error ? 'reader-error' : ''"
+      [ngClass]="success ? 'reader-success' : ''"
+    />
+    <img
+      id="rfid-card-scan-img"
+      [ngClass]="scanCard ? 'scan-show' : 'scan-hidden'"
+      src="assets/imagez/rfid-card-scan.png"
+      alt="RFID Reader"
+    />
+  </div>
+</content>
+<div
+  *ngIf="isLoading"
+  style="display: flex; flex-direction: column; align-items: center"
+>
+  <h2>Loading data</h2>
+  <div class="loader"></div>
+</div>

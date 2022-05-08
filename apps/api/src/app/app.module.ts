@@ -6,6 +6,7 @@ import { AttendancesModule } from './attendances/attendances.module';
 import { AuthUsersModule } from './auth-users/auth-users.module';
 import { AuthModule } from './auth/auth.module';
 import { ClassroomsModule } from './classrooms/classrooms.module';
+import { LecturesModule } from './lectures/lectures.module';
 import { configService } from './config/config.service';
 import { UsersModule } from './users/users.module';
 
@@ -16,6 +17,7 @@ import { UsersModule } from './users/users.module';
     ClassroomsModule,
     UsersModule,
     AttendancesModule,
+    LecturesModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
   ],
   controllers: [AppController],

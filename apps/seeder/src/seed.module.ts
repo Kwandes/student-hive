@@ -1,4 +1,4 @@
-import { Attendance, AuthUser, Classroom, User, Lecture } from '@models';
+import { Attendance, AuthUser, Classroom, Lecture, User } from '@models';
 import { DynamicModule, Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from './config.service';

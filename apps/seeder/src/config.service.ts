@@ -1,4 +1,4 @@
-import { Attendance, AuthUser, Classroom, User, Lecture } from '@models';
+import { Attendance, AuthUser, Classroom, Lecture, User } from '@models';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

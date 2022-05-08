@@ -1,12 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IClassroom } from '@student-hive/interfaces';
 import { Observable, of } from 'rxjs';
-
-const httpOptions = {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-};
 
 interface IReader {
   readerId: string;
@@ -93,7 +87,7 @@ const mockReaders: IReader[] = [
   providedIn: 'root',
 })
 export class ReadersService {
-  constructor(private http: HttpClient) {}
+  // constructor(private http: HttpClient) {}
   /**
    * Fetch all readers.
    * @returns a list of all readers as an observable.
@@ -138,7 +132,7 @@ export class ReadersService {
    * @param params ( CreateReaderRequest )
    * @returns the created reader as an observable.
    */
-  public create(params: { wip: string }): Observable<IReader> {
+  public create(/*params: { wip: string }*/): Observable<IReader> {
     console.warn('WiP - mock data. Nothing got changed');
     return of({
       readerId: '',

@@ -1,5 +1,6 @@
 import { IUser } from '@student-hive/interfaces';
 import { authUsers } from './auth-users.constant';
+import { classes } from './classes.constant';
 
 export const users: IUser[] = [
   {
@@ -7,6 +8,11 @@ export const users: IUser[] = [
     name: 'Learnus',
     lastname: 'Genericus',
     birthdate: new Date('2001-09-11'),
+    classes: [
+      classes.databases,
+      classes.developmentOfSmallSystems,
+      classes.developmentOfLargeSystems,
+    ],
     authUser: authUsers[0],
     authUserId: authUsers[0].authUserId,
   },
@@ -15,6 +21,11 @@ export const users: IUser[] = [
     name: 'Nerdus',
     lastname: 'Generico',
     birthdate: new Date('2001-09-11'),
+    classes: [
+      classes.databases,
+      classes.developmentOfSmallSystems,
+      classes.developmentOfLargeSystems,
+    ],
     authUser: authUsers[1],
     authUserId: authUsers[1].authUserId,
   },
@@ -23,6 +34,11 @@ export const users: IUser[] = [
     name: 'Disciplus',
     lastname: 'Genericuser',
     birthdate: new Date('2001-09-11'),
+    classes: [
+      classes.databases,
+      classes.developmentOfSmallSystems,
+      classes.developmentOfLargeSystems,
+    ],
     authUser: authUsers[2],
     authUserId: authUsers[2].authUserId,
   },
@@ -31,6 +47,12 @@ export const users: IUser[] = [
     name: 'Katto',
     lastname: 'Macgonnagall',
     birthdate: new Date('1970-01-01'),
+    classes: [
+      classes.databases,
+      classes.developmentOfSmallSystems,
+      classes.developmentOfLargeSystems,
+      classes.testing,
+    ],
     authUser: authUsers[3],
     authUserId: authUsers[3].authUserId,
   },
@@ -39,6 +61,7 @@ export const users: IUser[] = [
     name: 'Magister',
     lastname: 'Dumbeldore',
     birthdate: new Date('1970-01-01'),
+    classes: [],
     authUser: authUsers[4],
     authUserId: authUsers[4].authUserId,
   },

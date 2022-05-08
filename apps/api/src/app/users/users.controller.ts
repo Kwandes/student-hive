@@ -62,6 +62,7 @@ export class UsersController {
   get(@Param('id', ParseUUIDPipe) id: string): Promise<IUser> {
     return this.usersService.findOne(id);
   }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Roles(Role.teacher, Role.admin)

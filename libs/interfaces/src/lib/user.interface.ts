@@ -1,4 +1,5 @@
 import { IAuthUser } from './auth-user.interface';
+import { IClass } from './class.interface';
 import { IBase } from './interfaces';
 
 export interface IUser extends IBase {
@@ -8,6 +9,7 @@ export interface IUser extends IBase {
   birthdate?: Date;
   authUser: IAuthUser;
   authUserId: string;
+  classes: IClass[];
 }
 
 export interface ICreateUserRequest {
@@ -21,4 +23,5 @@ export interface IUpdateUserRequest {
   name?: string;
   lastName?: string;
   birthdate?: Date;
+  classes?: string[];
 }

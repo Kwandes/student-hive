@@ -49,4 +49,9 @@ export class UpdateUserRequest implements IUpdateUserRequest {
   @IsDateString()
   @IsOptional()
   birthdate?: Date;
+
+  @ApiModelProperty()
+  @IsUUID('all', { each: true })
+  @IsOptional()
+  classes?: string[];
 }

@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Connection, getManager } from 'typeorm';
 import { AttendancesSeederService } from './services/attendances.service';
 import { AuthUsersSeederService } from './services/auth-users.service';
+import { ClassesSeederService } from './services/classes.service';
 import { ClassroomSeederService } from './services/classrooms.service';
 import { LecturesSeederService } from './services/lectures.service';
 import { UsersSeederService } from './services/users.service';
@@ -15,7 +16,8 @@ export class SeedService {
     private readonly usersService: UsersSeederService,
     private readonly attendancesService: AttendancesSeederService,
     private readonly classroomService: ClassroomSeederService,
-    private readonly lecturesService: LecturesSeederService
+    private readonly lecturesService: LecturesSeederService,
+    private readonly classesService: ClassesSeederService
   ) {}
 
   // ========================
@@ -26,6 +28,7 @@ export class SeedService {
 
     // Seed the entities
     // has to be done in specific order for proper relationship data population
+    await this.seedClasses();
     await this.seedAuthUsers();
     await this.seedUsers();
     await this.seedClassrooms();
@@ -153,6 +156,17 @@ export class SeedService {
       return response;
     } catch (error) {
       this.logger.warn(`❌ Lectures failed to seed.`);
+      this.logger.error(error);
+    }
+  }
+
+  async seedClasses() {
+    try {
+      const response = await Promise.all(this.classesService.create());
+      this.logger.debug(`✅ Classes created: ${response.length}`);
+      return response;
+    } catch (error) {
+      this.logger.warn(`❌ Classes failed to seed.`);
       this.logger.error(error);
     }
   }

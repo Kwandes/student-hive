@@ -1,10 +1,11 @@
-import { Attendance, AuthUser, Classroom, Lecture, User } from '@models';
+import { Attendance, AuthUser, Class, Classroom, Lecture, User } from '@models';
 import { DynamicModule, Logger, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from './config.service';
 import { SeedService } from './seed.service';
 import { AttendancesSeederService } from './services/attendances.service';
 import { AuthUsersSeederService } from './services/auth-users.service';
+import { ClassesSeederService } from './services/classes.service';
 import { ClassroomSeederService } from './services/classrooms.service';
 import { LecturesSeederService } from './services/lectures.service';
 import { UsersSeederService } from './services/users.service';
@@ -22,6 +23,7 @@ export class SeedModule {
           Attendance,
           Classroom,
           Lecture,
+          Class,
         ]),
       ],
       providers: [
@@ -32,6 +34,7 @@ export class SeedModule {
         AttendancesSeederService,
         ClassroomSeederService,
         LecturesSeederService,
+        ClassesSeederService,
       ],
       exports: [SeedService],
     };

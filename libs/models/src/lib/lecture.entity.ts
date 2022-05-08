@@ -1,8 +1,15 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 import { ILecture } from '@student-hive/interfaces';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Attendance } from './attendance.entity';
 import { Base } from './base.entity';
+import { Class } from './class.entity';
 
 @Entity('lectures')
 export class Lecture extends Base implements ILecture {
@@ -24,15 +31,11 @@ export class Lecture extends Base implements ILecture {
   })
   attendances?: Attendance[];
 
-  /*
-  Class and Reader not implemented yet gonna do this later
+  @ApiModelProperty()
+  @ManyToOne(() => Class, (associatedClass) => associatedClass.lectures, {
+    onDelete: 'CASCADE',
+  }) // when associated lecture gets delated, the attendance entry should get removed as well
+  class!: Class;
 
-  @ApiModelProperty({ example: '9b34ea5c-5c02-4fec-8e01-080d0fee40a5' })
-  @Column({ type: 'uuid' })
-  classId!: string;
-
-  @ApiModelProperty({ example: '9b34ea5c-5c02-4fec-8e01-080d0fee40a5' })
-  @Column({ type: 'uuid' })
-  readerId!: string;
-  */
+  // TODO - implement reader relationship once reader entity is implemneted
 }

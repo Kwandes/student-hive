@@ -3,6 +3,8 @@ export * from './lib/attendance.interface';
 export * from './lib/auth-user.interface';
 export * from './lib/auth.dto';
 export * from './lib/auth.interface';
+export * from './lib/class.dto';
+export * from './lib/class.interface';
 export * from './lib/classroom.dto';
 export * from './lib/classroom.interface';
 export * from './lib/interfaces';

@@ -1,8 +1,9 @@
-import { AuthUser, User } from '@models';
+import { AuthUser, Class, User } from '@models';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   IAuthUser,
+  IClass,
   ICreateUserRequest,
   IUser,
   UpdateUserRequest,
@@ -15,7 +16,9 @@ export class UsersService {
     @InjectRepository(User)
     private readonly usersRepo: Repository<User>,
     @InjectRepository(AuthUser)
-    private readonly authUsersRepo: Repository<AuthUser>
+    private readonly authUsersRepo: Repository<AuthUser>,
+    @InjectRepository(Class)
+    private readonly classesRepo: Repository<Class>
   ) {}
 
   /**
@@ -26,7 +29,7 @@ export class UsersService {
   async findOne(id: string): Promise<User> {
     return this.usersRepo.findOneOrFail({
       where: { userId: id },
-      relations: ['authUser'],
+      relations: ['authUser', 'classes'],
     });
   }
 
@@ -35,7 +38,7 @@ export class UsersService {
    * @returns a list of users.
    */
   async findAll(): Promise<IUser[]> {
-    return this.usersRepo.find({ relations: ['authUser'] });
+    return this.usersRepo.find({ relations: ['authUser', 'classes'] });
   }
 
   /**
@@ -85,7 +88,7 @@ export class UsersService {
    * @returns updated entity.
    */
   async update(request: UpdateUserRequest, id: string): Promise<IUser> {
-    const { name, lastName, birthdate } = request;
+    const { name, lastName, birthdate, classes } = request;
     const user = await this.usersRepo.findOneOrFail({ where: { userId: id } });
     if (name) {
       user.name = name;
@@ -96,6 +99,21 @@ export class UsersService {
     if (birthdate) {
       user.birthdate = birthdate;
     }
+    if (classes) {
+      {
+        const classList: IClass[] = [];
+        for (const classId of classes) {
+          classList.push(
+            await this.classesRepo.findOneOrFail({
+              where: { classId: classId },
+            })
+          );
+        }
+        user.classes = classList;
+      }
+      user.birthdate = birthdate;
+    }
+    // TODO - allow updating classes the user is in
     return this.usersRepo.save(user);
   }
 

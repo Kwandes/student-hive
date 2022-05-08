@@ -1,8 +1,16 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 import { IUser } from '@student-hive/interfaces';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { AuthUser } from './auth-user.entity';
 import { Base } from './base.entity';
+import { Class } from './class.entity';
 
 @Entity('users')
 export class User extends Base implements IUser {
@@ -34,4 +42,8 @@ export class User extends Base implements IUser {
     eager: true, // always fully include related entity when fetching the user.
   })
   authUser!: AuthUser;
+
+  @ManyToMany(() => Class)
+  @JoinTable()
+  classes!: Class[];
 }

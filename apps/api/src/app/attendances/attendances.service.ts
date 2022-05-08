@@ -1,4 +1,4 @@
-import { Attendance, AuthUser } from '@models';
+import { Attendance, AuthUser, Lecture } from '@models';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -15,7 +15,9 @@ export class AttendancesService {
     @InjectRepository(Attendance)
     private readonly attendancesRepo: Repository<Attendance>,
     @InjectRepository(AuthUser)
-    private readonly authUserRepo: Repository<AuthUser>
+    private readonly authUserRepo: Repository<AuthUser>,
+    @InjectRepository(Lecture)
+    private readonly lecturesRepo: Repository<Lecture>
   ) {}
 
   /**
@@ -26,7 +28,7 @@ export class AttendancesService {
   async findOne(id: string): Promise<Attendance> {
     return this.attendancesRepo.findOneOrFail({
       where: { attendanceId: id },
-      relations: ['authUser'],
+      relations: ['authUser', 'lecture'],
     });
   }
 
@@ -61,7 +63,7 @@ export class AttendancesService {
 
     return this.attendancesRepo.find({
       where: findOptions,
-      relations: ['authUser'],
+      relations: ['authUser', 'lecture'],
     });
   }
 
@@ -87,7 +89,7 @@ export class AttendancesService {
       delete findOptions.createdAt;
     }
     return this.attendancesRepo.find({
-      relations: ['authUser'],
+      relations: ['authUser', 'lecture'],
       where: findOptions,
     });
   }
@@ -98,14 +100,20 @@ export class AttendancesService {
    * @returns created attendance.
    */
   async create(request: ICreateAttendanceRequest): Promise<IAttendance> {
-    const { authUserId } = request;
+    const { authUserId, lectureId } = request;
     // validate that the auth user exists
     const authUser = await this.authUserRepo.findOneOrFail({
       where: { authUserId: authUserId },
     });
 
+    // validate that the lecture exists
+    const lecture = await this.lecturesRepo.findOneOrFail({
+      where: { lectureId: lectureId },
+    });
+
     const newAttendance = this.attendancesRepo.create({
       authUser: authUser,
+      lecture: lecture,
     });
 
     return this.attendancesRepo.save(newAttendance);

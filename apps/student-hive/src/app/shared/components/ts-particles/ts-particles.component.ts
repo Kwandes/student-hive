@@ -10,6 +10,7 @@ import { allParticlesOptions } from './options/presets.constant';
 })
 export class TsParticlesComponent implements OnInit {
   // https://particles.js.org/docs/index.html
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentOptions: any = allParticlesOptions[0];
 
   ngOnInit(): void {

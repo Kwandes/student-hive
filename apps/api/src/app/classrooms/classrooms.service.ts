@@ -1,17 +1,14 @@
 import { Classroom } from '@models';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  IClassroom,
-  ICreateClassroomRequest
-} from '@student-hive/interfaces';
+import { IClassroom, ICreateClassroomRequest } from '@student-hive/interfaces';
 import { EntityNotFoundError, Repository } from 'typeorm';
 
 @Injectable()
 export class ClassroomsService {
   constructor(
     @InjectRepository(Classroom)
-    private readonly classroomsRepo: Repository<Classroom>,
+    private readonly classroomsRepo: Repository<Classroom>
   ) {}
 
   /**
@@ -33,22 +30,22 @@ export class ClassroomsService {
     });
   }
 
-  async update(id:string, request:ICreateClassroomRequest){
-    const classroom = await this.classroomsRepo.findOneOrFail({ where: { classroomId: id } });
+  async update(id: string, request: ICreateClassroomRequest) {
+    const classroom = await this.classroomsRepo.findOneOrFail({
+      where: { classroomId: id },
+    });
     classroom.name = request.name;
 
     return this.classroomsRepo.save(classroom);
   }
 
- 
   /**
    * Create and persist a classroom entity.
    * @param request information for classroom creation.
    * @returns created classroom.
    */
   async create(request: ICreateClassroomRequest): Promise<IClassroom> {
-
-    const {name} = request;
+    const { name } = request;
     const newClassroom = this.classroomsRepo.create({
       name: name,
     });

@@ -2,8 +2,9 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Connection, getManager } from 'typeorm';
 import { AttendancesSeederService } from './services/attendances.service';
 import { AuthUsersSeederService } from './services/auth-users.service';
-import { UsersSeederService } from './services/users.service';
 import { ClassroomSeederService } from './services/classrooms.service';
+import { LecturesSeederService } from './services/lectures.service';
+import { UsersSeederService } from './services/users.service';
 
 @Injectable()
 export class SeedService {
@@ -13,7 +14,8 @@ export class SeedService {
     private readonly authUsersService: AuthUsersSeederService,
     private readonly usersService: UsersSeederService,
     private readonly attendancesService: AttendancesSeederService,
-    private readonly classroomService: ClassroomSeederService
+    private readonly classroomService: ClassroomSeederService,
+    private readonly lecturesService: LecturesSeederService
   ) {}
 
   // ========================
@@ -23,10 +25,12 @@ export class SeedService {
     await this.resetDatabase();
 
     // Seed the entities
+    // has to be done in specific order for proper relationship data population
     await this.seedAuthUsers();
     await this.seedUsers();
-    await this.seedAttendances();
     await this.seedClassrooms();
+    await this.seedLectures();
+    await this.seedAttendances();
   }
 
   // ====================================
@@ -138,6 +142,17 @@ export class SeedService {
       return response;
     } catch (error) {
       this.logger.warn(`❌ Classroom failed to seed.`);
+      this.logger.error(error);
+    }
+  }
+
+  async seedLectures() {
+    try {
+      const response = await Promise.all(this.lecturesService.create());
+      this.logger.debug(`✅ Lectures created: ${response.length}`);
+      return response;
+    } catch (error) {
+      this.logger.warn(`❌ Lectures failed to seed.`);
       this.logger.error(error);
     }
   }

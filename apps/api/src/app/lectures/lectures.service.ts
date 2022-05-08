@@ -1,18 +1,14 @@
 import { Lecture } from '@models';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  IClassroom,
-  ICreateClassroomRequest,
-  ICreateLectureRequest,
-} from '@student-hive/interfaces';
+import { ICreateLectureRequest, ILecture } from '@student-hive/interfaces';
 import { EntityNotFoundError, Repository } from 'typeorm';
 
 @Injectable()
-export class LectureService {
+export class LecturesService {
   constructor(
     @InjectRepository(Lecture)
-    private readonly lecturesRepo: Repository<Lecture>
+    private readonly lecturesRepo: Repository<ILecture>
   ) {}
 
   /**
@@ -31,7 +27,7 @@ export class LectureService {
    * @param id id of the entity.
    * @returns entity or EntityNotFound error.
    */
-  async findOne(id: string): Promise<Lecture> {
+  async findOne(id: string): Promise<ILecture> {
     return this.lecturesRepo.findOneOrFail({
       where: { lectureId: id },
     });
@@ -43,7 +39,7 @@ export class LectureService {
    * @param request information for lecture creation.
    * @returns entity or EntityNotFounderror
    */
-  async update(id: string, request: ICreateLectureRequest): Promise<Lecture> {
+  async update(id: string, request: ICreateLectureRequest): Promise<ILecture> {
     const lecture = await this.lecturesRepo.findOneOrFail({
       where: { lectureId: id },
     });

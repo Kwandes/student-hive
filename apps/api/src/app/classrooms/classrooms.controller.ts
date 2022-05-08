@@ -25,7 +25,6 @@ import {
 } from '@student-hive/interfaces';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { AuthUser } from '../auth/user.decorator';
 import { ClassroomsService } from './classrooms.service';
 
 @ApiTags('Classrooms')
@@ -45,7 +44,6 @@ export class ClassroomsController {
     return this.classroomsService.findAll();
   }
 
-  
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Roles(Role.teacher, Role.admin)
@@ -76,8 +74,11 @@ export class ClassroomsController {
     summary: 'Update an classroom. Role: Admin, teacher',
   })
   @ApiOkResponse({ type: Classroom })
-  update(@Param('id', ParseUUIDPipe) id: string, @Body() createRequest: CreateClassroomRequest): Promise<IClassroom> {
-    return this.classroomsService.update(id,createRequest);
+  update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() createRequest: CreateClassroomRequest
+  ): Promise<IClassroom> {
+    return this.classroomsService.update(id, createRequest);
   }
 
   @ApiBearerAuth()
@@ -86,8 +87,7 @@ export class ClassroomsController {
   @Delete(':id')
   @HttpCode(204)
   @ApiOperation({
-    summary:
-      'Delete a specific classroom information. Role: Teacher, Admin',
+    summary: 'Delete a specific classroom information. Role: Teacher, Admin',
   })
   delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     return this.classroomsService.perish(id);

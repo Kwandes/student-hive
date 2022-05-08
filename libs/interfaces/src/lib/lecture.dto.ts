@@ -6,10 +6,10 @@ export class CreateLectureRequest implements ICreateLectureRequest {
   @ApiModelProperty()
   @IsDateString()
   @IsNotEmpty()
-  start: Date;
+  start!: Date;
 
   @ApiModelProperty()
   @IsDateString()
   @IsNotEmpty()
-  end: Date;
+  end!: Date;
 }

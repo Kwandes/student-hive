@@ -30,10 +30,10 @@ export class LecturesController {
   TO DO: Class not implemented yet
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.teacher, Role.admin)
+  @Roles()
   @Get('/class/:id')
   @ApiOperation({
-    summary: 'Get a list of all lectures for a class. Roles: Teacher, Admin',
+    summary: 'Get a list of all lectures for a class. Roles: Any',
   })
   @ApiOkResponse({ type: [Lecture] })
   async getByClass(): Promise<ILecture[]> {
@@ -43,10 +43,20 @@ export class LecturesController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.teacher, Role.admin)
+  @Roles()
+  @Get('')
+  @ApiOperation({ summary: 'Get a list of all lectures. Role: Any' })
+  @ApiOkResponse({ type: [Lecture] })
+  async getAll(): Promise<ILecture[]> {
+    return this.lecturesService.findAll();
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Roles()
   @Get(':id')
   @ApiOperation({
-    summary: 'Get a lecture by id. Roles: Teacher, Admin',
+    summary: 'Get a lecture by id. Roles: Any',
   })
   @ApiOkResponse({ type: Lecture })
   get(@Param('id', ParseUUIDPipe) id: string): Promise<ILecture> {

@@ -34,6 +34,14 @@ export class LecturesService {
   }
 
   /**
+   * Find all lectures.
+   * @returns a list of lectures.
+   */
+  async findAll(): Promise<ILecture[]> {
+    return this.lecturesRepo.find();
+  }
+
+  /**
    * Update a Lecture by their id
    * @param id id of the entity
    * @param request information for lecture creation.

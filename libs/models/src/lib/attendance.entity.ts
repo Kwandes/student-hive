@@ -3,6 +3,7 @@ import { IAttendance } from '@student-hive/interfaces';
 import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { AuthUser } from './auth-user.entity';
 import { Base } from './base.entity';
+import { Lecture } from './lecture.entity';
 
 @Entity('attendances')
 export class Attendance extends Base implements IAttendance {
@@ -14,5 +15,9 @@ export class Attendance extends Base implements IAttendance {
   @ManyToOne(() => AuthUser, { onDelete: 'CASCADE' }) // when associated auth user gets delated, the attendance entry should get removed as well
   authUser!: AuthUser;
 
-  // TODO - add lecture relationship. Requires lecture entity to be implemented
+  @ApiModelProperty()
+  @ManyToOne(() => Lecture, (lecture) => lecture.attendances, {
+    onDelete: 'CASCADE',
+  }) // when associated lecture gets delated, the attendance entry should get removed as well
+  lecture!: Lecture;
 }

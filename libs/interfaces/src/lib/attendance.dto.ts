@@ -7,6 +7,11 @@ export class CreateAttendanceRequest implements ICreateAttendanceRequest {
   @IsNotEmpty()
   @IsUUID()
   authUserId!: string;
+
+  @ApiModelProperty({ example: '9b34ea5c-5c02-4fec-8e01-080d0fee40a5' })
+  @IsNotEmpty()
+  @IsUUID()
+  lectureId!: string;
 }
 
 export class GetAttendanceQuery {

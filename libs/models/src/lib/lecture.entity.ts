@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 import { ILecture } from '@student-hive/interfaces';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-//import { AuthUser } from './auth-user.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Attendance } from './attendance.entity';
 import { Base } from './base.entity';
 
 @Entity('lectures')
@@ -10,13 +10,19 @@ export class Lecture extends Base implements ILecture {
   @PrimaryGeneratedColumn('uuid')
   lectureId!: string;
 
-  @ApiModelProperty({ required: true })
-  @Column({ nullable: false })
+  @ApiModelProperty()
+  @Column()
   start!: Date;
 
-  @ApiModelProperty({ required: true })
-  @Column({ nullable: false })
+  @ApiModelProperty()
+  @Column()
   end!: Date;
+
+  @OneToMany(() => Attendance, (attendance) => attendance.lecture, {
+    cascade: true, // propagate changes to the associated attendances
+    nullable: true,
+  })
+  attendances?: Attendance[];
 
   /*
   Class and Reader not implemented yet gonna do this later

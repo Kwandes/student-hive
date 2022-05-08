@@ -1,4 +1,4 @@
-import { AuthUser, User } from '@models';
+  import { AuthUser, User } from '@models';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {

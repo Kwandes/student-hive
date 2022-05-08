@@ -10,3 +10,4 @@ export * from './lib/user.interface';
 export * from './lib/classroom.interface';
 export * from './lib/classroom.dto';
 export * from './lib/lecture.interface';
+export * from './lib/lecture.dto';

@@ -7,3 +7,8 @@ export interface ILecture extends IBase {
   //classId: string;
   //readerId: string;
 }
+
+export interface ICreateLectureRequest {
+  start: Date;
+  end: Date;
+}

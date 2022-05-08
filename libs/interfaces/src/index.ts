@@ -7,5 +7,6 @@ export * from './lib/interfaces';
 export * from './lib/role.enum';
 export * from './lib/user.dto';
 export * from './lib/user.interface';
-export * from './lib/classroom.interface'
-export * from './lib/classroom.dto'
+export * from './lib/classroom.interface';
+export * from './lib/classroom.dto';
+export * from './lib/lecture.interface';

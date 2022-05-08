@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUser, UpdateUserRequest } from '@student-hive/interfaces';
+import { IClass, UpdateUserRequest } from '@student-hive/interfaces';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ClassService {
+export class ClassesService {
   constructor(private http: HttpClient) {}
 
   /**
    * Fetch the currently authenticted class.
    * @returns the class as an observable.
    */
-  public getMe(): Observable<IUser> {
-    return this.http.get<IUser>(`${env.apiUrl}/api/classes/me`);
+  public getMe(): Observable<IClass> {
+    return this.http.get<IClass>(`${env.apiUrl}/api/classes/me`);
   }
 
   /**
@@ -23,8 +23,8 @@ export class ClassService {
    * @param params class information.
    * @returns the updated class as an observable.
    */
-  public updateMe(params: UpdateUserRequest): Observable<IUser> {
-    return this.http.put<IUser>(`${env.apiUrl}/api/classes`, params);
+  public updateMe(params: UpdateUserRequest): Observable<IClass> {
+    return this.http.put<IClass>(`${env.apiUrl}/api/classes`, params);
   }
 
   /**
@@ -32,16 +32,16 @@ export class ClassService {
    * @param params ( UpdateUserRequest )
    * @returns the updated class as an observable.
    */
-  public updateById(params: UpdateUserRequest, id: string): Observable<IUser> {
-    return this.http.put<IUser>(`${env.apiUrl}/api/classes/${id}`, params);
+  public updateById(params: UpdateUserRequest, id: string): Observable<IClass> {
+    return this.http.put<IClass>(`${env.apiUrl}/api/classes/${id}`, params);
   }
 
   /**
    * Fetch all classes.
    * @returns a list of all classes as an observable.
    */
-  public getAll(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${env.apiUrl}/api/classes`);
+  public getAll(): Observable<IClass[]> {
+    return this.http.get<IClass[]>(`${env.apiUrl}/api/classes`);
   }
 
   /**
@@ -49,8 +49,8 @@ export class ClassService {
    * @param id id of the class.
    * @returns the class as an observable.
    */
-  public getOne(id: string): Observable<IUser> {
-    return this.http.get<IUser>(`${env.apiUrl}/api/classes/${id}`);
+  public getOne(id: string): Observable<IClass> {
+    return this.http.get<IClass>(`${env.apiUrl}/api/classes/${id}`);
   }
 
   /**

@@ -1,7 +1,11 @@
 import { Lecture } from '@models';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ICreateLectureRequest, ILecture } from '@student-hive/interfaces';
+import {
+  GetLecturesQuery,
+  ICreateLectureRequest,
+  ILecture,
+} from '@student-hive/interfaces';
 import { EntityNotFoundError, Repository } from 'typeorm';
 
 @Injectable()
@@ -37,8 +41,22 @@ export class LecturesService {
    * Find all lectures.
    * @returns a list of lectures.
    */
-  async findAll(): Promise<ILecture[]> {
-    return this.lecturesRepo.find();
+  async findAll(query: GetLecturesQuery): Promise<ILecture[]> {
+    const { classId } = query;
+    // days "start" at 22:00 of the previous day, and end on 21:59 of the given day
+    const findOptions = {
+      class: {
+        classId: classId,
+      },
+    };
+
+    if (!classId) {
+      delete findOptions.class;
+    }
+    return this.lecturesRepo.find({
+      relations: ['class'],
+      where: findOptions,
+    });
   }
 
   /**

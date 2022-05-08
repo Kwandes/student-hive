@@ -12,8 +12,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { StudentAttendanceComponent } from './pages/student/attendance/attendance.component';
-import { StudentClassesComponent } from './pages/student/classes/classes.component';
 import { StudentDashboardComponent } from './pages/student/dashboard/dashboard.component';
 import { StudentComponent } from './pages/student/student.component';
 import { TeacherClassesComponent } from './pages/teacher/classes/classes.component';
@@ -46,8 +44,6 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard' },
       { path: 'dashboard', component: StudentDashboardComponent },
-      { path: 'classes', component: StudentClassesComponent },
-      { path: 'attendance', component: StudentAttendanceComponent },
     ],
   },
   {

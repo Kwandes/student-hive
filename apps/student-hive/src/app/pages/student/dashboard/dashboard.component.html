@@ -1,1 +1,33 @@
-<p>dashboard works!</p>
+<section class="content-wrapper">
+  <span class="title">Hello Student, here be your schoool info</span>
+  <br />
+  <br />
+  <div *ngIf="isLoading">
+    <br />
+    <br />
+    <br />
+    <br />
+    <student-hive-loading-spinner></student-hive-loading-spinner>
+  </div>
+
+  <section *ngIf="!isLoading" class="user-info">
+    <div class="wall" style="transform: rotate(180deg)"></div>
+    <span class="subtitle">Your classes</span>
+    <ng-container *ngFor="let class of classes">
+      <span class="text" style="padding: 5px">{{ class.name }}</span>
+    </ng-container>
+    <br />
+    <span class="subtitle">Upcoming lectures</span>
+    <ng-container *ngFor="let lecture of upcomingLectures">
+      <span class="text" style="padding: 5px"
+        >{{ lecture.class.name }}: {{ lecture.start }}</span
+      >
+    </ng-container>
+    <br />
+    <!-- <span class="subtitle">Missed classes this month</span>
+    <span class="text">{{ user?.name + ' ' + user?.lastname }}</span> -->
+    <br />
+
+    <div class="wall"></div>
+  </section>
+</section>

@@ -9,6 +9,7 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -17,7 +18,12 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateLectureRequest, ILecture, Role } from '@student-hive/interfaces';
+import {
+  CreateLectureRequest,
+  GetLecturesQuery,
+  ILecture,
+  Role,
+} from '@student-hive/interfaces';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { LecturesService } from './lectures.service';
@@ -47,8 +53,8 @@ export class LecturesController {
   @Get('')
   @ApiOperation({ summary: 'Get a list of all lectures. Role: Any' })
   @ApiOkResponse({ type: [Lecture] })
-  async getAll(): Promise<ILecture[]> {
-    return this.lecturesService.findAll();
+  async getAll(@Query() query: GetLecturesQuery): Promise<ILecture[]> {
+    return this.lecturesService.findAll(query);
   }
 
   @ApiBearerAuth()

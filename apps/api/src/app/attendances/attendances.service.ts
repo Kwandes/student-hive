@@ -63,7 +63,7 @@ export class AttendancesService {
 
     return this.attendancesRepo.find({
       where: findOptions,
-      relations: ['authUser', 'lecture'],
+      relations: ['authUser', 'lecture', 'lecture.class'],
     });
   }
 
@@ -89,7 +89,7 @@ export class AttendancesService {
       delete findOptions.createdAt;
     }
     return this.attendancesRepo.find({
-      relations: ['authUser', 'lecture'],
+      relations: ['authUser', 'lecture', 'lecture.class'],
       where: findOptions,
     });
   }

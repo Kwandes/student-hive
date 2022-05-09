@@ -24,6 +24,13 @@
       >
     </ng-container>
     <br />
+    <span class="subtitle">All of your registered attendances</span>
+    <ng-container *ngFor="let attendance of attendances">
+      <span class="text" style="padding: 5px"
+        >{{ attendance.lecture.class.name }}: {{ attendance.createdAt }}</span
+      >
+    </ng-container>
+    <br />
     <!-- <span class="subtitle">Missed classes this month</span>
     <span class="text">{{ user?.name + ' ' + user?.lastname }}</span> -->
     <br />

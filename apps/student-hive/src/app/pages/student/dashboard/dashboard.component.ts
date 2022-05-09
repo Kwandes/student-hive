@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IClass, ILecture, IUser } from '@student-hive/interfaces';
+import { IAttendance, IClass, ILecture, IUser } from '@student-hive/interfaces';
+import { AttendancesService } from '../../../shared/services/attendance.service';
 import { LecturesService } from '../../../shared/services/lectures.service';
 import { UsersService } from '../../../shared/services/users.service';
 
@@ -15,12 +16,14 @@ export class StudentDashboardComponent implements OnInit {
   classes: IClass[] = [];
   lectures: ILecture[] = [];
   upcomingLectures: ILecture[] = [];
+  attendances: IAttendance[] = [];
   isLoading = false;
 
   constructor(
     private snackBar: MatSnackBar,
     private readonly usersService: UsersService,
-    private readonly lecturesService: LecturesService
+    private readonly lecturesService: LecturesService,
+    private readonly attendancesService: AttendancesService
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +39,7 @@ export class StudentDashboardComponent implements OnInit {
         this.isLoading = false;
         this.classes = this.user.classes;
         this.fetchLectures();
+        this.fetchUsersAttendances();
       },
       error: (err: HttpErrorResponse) => {
         console.error(err);
@@ -57,9 +61,34 @@ export class StudentDashboardComponent implements OnInit {
             this.lectures = this.lectures.concat(lectures);
             this.setUpcomingLectures();
           },
+          error: (err: HttpErrorResponse) => {
+            console.error(err);
+            this.isLoading = false;
+            this.snackBar.open(
+              `Failed to load lectures: ${err.error.message}`,
+              'OH NO WHAT HAPPENED TO THEM!!'
+            );
+          },
         });
       }
     }
+  }
+
+  fetchUsersAttendances() {
+    // eslint-disable-next-line no-unsafe-optional-chaining
+    this.attendancesService.getAllofMine().subscribe({
+      next: (attendances) => {
+        this.attendances = attendances;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+        this.isLoading = false;
+        this.snackBar.open(
+          `Failed to load attendances: ${err.error.message}`,
+          'OH NO WHAT HAPPENED TO THEM!!'
+        );
+      },
+    });
   }
 
   setUpcomingLectures(): void {

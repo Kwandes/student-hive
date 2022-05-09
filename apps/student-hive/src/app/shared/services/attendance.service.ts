@@ -18,6 +18,14 @@ export class AttendancesService {
   }
 
   /**
+   * Fetch all attendances of currently authenticated user.
+   * @returns a list of all attendances as an observable.
+   */
+  public getAllofMine(): Observable<IAttendance[]> {
+    return this.http.get<IAttendance[]>(`${env.apiUrl}/api/attendances/me`);
+  }
+
+  /**
    * Fetch specific attendance.
    * @param id id of the attendance.
    * @returns the attendance as an observable.

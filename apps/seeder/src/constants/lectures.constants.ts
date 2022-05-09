@@ -74,14 +74,14 @@ export const lectures: ILecture[] = [
   },
   {
     // 10
-    lectureId: '830f5bdf-11d3-4dcd-9739-682ee274d97f',
+    lectureId: '2e12352a-f0a8-401b-93fb-0f427d35de40',
     start: new Date('2022-05-04 08:30:00.00'),
     end: new Date('2022-05-09 10:15:00.00'),
     class: classes.databases,
   },
   {
     // 11
-    lectureId: '4993e8fe-a84e-4fbb-8709-e72a206b94fa',
+    lectureId: '9c0309ba-a22c-43c5-833f-ccdbf2334e98',
     start: new Date('2022-05-04 10:45:00.00'),
     end: new Date('2022-05-09 12:30:00.00'),
     class: classes.databases,

@@ -101,4 +101,11 @@ export class StudentDashboardComponent implements OnInit {
         new Date(lecture.start).toISOString() < weekAwayDate.toISOString()
     );
   }
+
+  getFormattedDate(date : Date ):string {
+    return date?.getDay()?.toString(); 
+  }
+
+
+
 }

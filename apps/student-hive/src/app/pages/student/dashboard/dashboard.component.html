@@ -12,25 +12,35 @@
 
   <section *ngIf="!isLoading" class="user-info">
     <div class="wall" style="transform: rotate(180deg)"></div>
-    <span class="subtitle">Your classes</span>
+    <span class="subtitle">Attendance</span>
     <ng-container *ngFor="let class of classes">
-      <span class="text" style="padding: 5px">{{ class.name }}</span>
+    <div class="classesHeader">
+      <span class="text">{{ class.name }}</span>
+    </div> 
+
+    <div *ngIf="true">
+    <ng-container  *ngFor="let attendance of attendances">
+    <div class="attendanceList" *ngIf="attendance.lecture.class.name == class.name">
+      <span class="text" style="margin-right: 12px;">{{attendance.createdAt | date: 'dd/MM/yyyy'}}</span>
+      <span class="text" style="font-weight:bold">{{attendance.createdAt | date: 'HH:mm'}}</span>
+    </div>
     </ng-container>
+  </div>
+  </ng-container>
     <br />
+
     <span class="subtitle">Upcoming lectures</span>
     <ng-container *ngFor="let lecture of upcomingLectures">
-      <span class="text" style="padding: 5px"
-        >{{ lecture.class.name }}: {{ lecture.start }}</span
-      >
+      <div class="attendanceList">
+        <span class="text">{{ lecture.class.name}} </span>
+        <div>
+        <span class="text" style="margin-right: 12px;">{{lecture.start| date: 'dd/MM/yyyy'}}</span>
+        <span class="text" style="font-weight:bold">{{lecture.start| date: 'HH:mm'}}</span>
+        </div>
+      </div>
     </ng-container>
     <br />
-    <span class="subtitle">All of your registered attendances</span>
-    <ng-container *ngFor="let attendance of attendances">
-      <span class="text" style="padding: 5px"
-        >{{ attendance.lecture.class.name }}: {{ attendance.createdAt }}</span
-      >
-    </ng-container>
-    <br />
+    
     <!-- <span class="subtitle">Missed classes this month</span>
     <span class="text">{{ user?.name + ' ' + user?.lastname }}</span> -->
     <br />

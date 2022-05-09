@@ -92,11 +92,13 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   setUpcomingLectures(): void {
+    const weekAwayDate = new Date();
+    weekAwayDate.setDate(new Date().getDate() + 7);
+
     this.upcomingLectures = this.lectures.filter(
       (lecture) =>
-        new Date(lecture.start).getDate() > new Date().getDate() &&
-        new Date(lecture.start).getDate() <
-          new Date().setDate(new Date().getDate() + 7)
+        new Date(lecture.start).toISOString() > new Date().toISOString() &&
+        new Date(lecture.start).toISOString() < weekAwayDate.toISOString()
     );
   }
 }

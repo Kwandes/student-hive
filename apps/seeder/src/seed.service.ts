@@ -6,6 +6,7 @@ import { ClassesSeederService } from './services/classes.service';
 import { ClassroomSeederService } from './services/classrooms.service';
 import { LecturesSeederService } from './services/lectures.service';
 import { UsersSeederService } from './services/users.service';
+import { ReaderSeederService } from './services/readers.service';
 
 @Injectable()
 export class SeedService {
@@ -17,7 +18,8 @@ export class SeedService {
     private readonly attendancesService: AttendancesSeederService,
     private readonly classroomService: ClassroomSeederService,
     private readonly lecturesService: LecturesSeederService,
-    private readonly classesService: ClassesSeederService
+    private readonly classesService: ClassesSeederService,
+    private readonly readersService: ReaderSeederService
   ) {}
 
   // ========================
@@ -34,6 +36,7 @@ export class SeedService {
     await this.seedClassrooms();
     await this.seedLectures();
     await this.seedAttendances();
+    await this.seedReaders();
   }
 
   // ====================================
@@ -167,6 +170,17 @@ export class SeedService {
       return response;
     } catch (error) {
       this.logger.warn(`❌ Classes failed to seed.`);
+      this.logger.error(error);
+    }
+  }
+
+  async seedReaders() {
+    try {
+      const response = await Promise.all(this.readersService.create());
+      this.logger.debug(`✅ Readers created: ${response.length}`);
+      return response;
+    } catch (error) {
+      this.logger.warn(`❌ Readers failed to seed.`);
       this.logger.error(error);
     }
   }

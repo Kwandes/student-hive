@@ -20,7 +20,7 @@ export class Reader extends Base implements IReader {
   status!: ReaderStatus;
 
   @ApiModelProperty()
-  @Column()
+  @Column({ default: true })
   isEnabled!: boolean;
 
   @ApiModelProperty({ required: false })

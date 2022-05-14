@@ -1,4 +1,4 @@
-import { Attendance, AuthUser, Class, Classroom, Lecture, User } from '@models';
+import { Attendance, AuthUser, Class, Classroom, Lecture, Reader, User } from '@models';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -41,7 +41,7 @@ class ConfigService {
       password: this.getValue('POSTGRES_PASSWORD', false) || 'root',
       database: this.getValue('POSTGRES_DATABASE', false) || 'student_hive',
 
-      entities: [AuthUser, User, Attendance, Classroom, Lecture, Class],
+      entities: [AuthUser, User, Attendance, Classroom, Lecture, Class, Reader],
     };
   }
 }

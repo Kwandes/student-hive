@@ -9,6 +9,7 @@ import { ClassesModule } from './classes/classes.module';
 import { ClassroomsModule } from './classrooms/classrooms.module';
 import { configService } from './config/config.service';
 import { LecturesModule } from './lectures/lectures.module';
+import { ReadersModule } from './readers/readers.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -20,6 +21,7 @@ import { UsersModule } from './users/users.module';
     AttendancesModule,
     LecturesModule,
     ClassesModule,
+    ReadersModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
   ],
   controllers: [AppController],

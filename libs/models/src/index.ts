@@ -5,3 +5,4 @@ export * from './lib/class.entity';
 export * from './lib/classroom.entity';
 export * from './lib/lecture.entity';
 export * from './lib/user.entity';
+export * from './lib/reader.entity';

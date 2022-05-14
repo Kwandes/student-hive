@@ -13,3 +13,6 @@ export * from './lib/lecture.interface';
 export * from './lib/role.enum';
 export * from './lib/user.dto';
 export * from './lib/user.interface';
+export * from './lib/reader.interface';
+export * from './lib/reader.dto';
+export * from './lib/reader-status.enum';
